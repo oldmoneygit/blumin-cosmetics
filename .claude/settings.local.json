@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(copy \"c:\\Users\\PC\\Desktop\\BLUMIN\\KAHI\\BANNERS\\BANNER PRINCIPAL.png\" \"c:\\Users\\PC\\Desktop\\BLUMIN\\public\\images\\hero-banner.png\")",
+      "Bash(powershell -Command:*)",
+      "Bash(copy \"c:\\Users\\PC\\Desktop\\BLUMIN\\KAHI\\BANNERS\\banner 3.png\" \"c:\\Users\\PC\\Desktop\\BLUMIN\\public\\images\\banner3.png\")",
+      "Bash(dir:*)",
+      "Bash(copy \"c:\\Users\\PC\\Desktop\\BLUMIN\\KAHI\\products\\aqua.jpg\" \"c:\\Users\\PC\\Desktop\\BLUMIN\\public\\images\\products\\aqua-balm-stick.jpg\")",
+      "Bash(copy:*)",
+      "Bash(npm run dev:*)",
+      "Bash(taskkill:*)",
+      "Bash(findstr:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
