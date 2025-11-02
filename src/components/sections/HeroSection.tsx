@@ -58,7 +58,7 @@ export const HeroSection = () => {
   };
 
   return (
-    <section className="relative w-full overflow-hidden bg-white">
+    <section className="relative w-full overflow-hidden bg-white mt-0" style={{ paddingTop: '100px' }}>
       {/* Main Banner - Full Width Edge to Edge */}
       <div
         className={`relative w-full transform transition-all duration-1000 delay-200 ${
@@ -75,24 +75,27 @@ export const HeroSection = () => {
           />
 
           {/* Gradient Overlay with Text and Button */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent flex items-center justify-start">
-            <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16">
-              <div className="max-w-xl">
+          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent flex items-center justify-center">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 w-full">
+              <div className="max-w-4xl mx-auto text-center">
                 {/* Overlay Text */}
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-6 leading-tight">
-                  Firma tus rasgos y obtén beneficios complementarios
+                <h2 className="text-lg sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-8 leading-tight px-4">
+                  <span className="block">Firma tus rasgos y</span>
+                  <span className="block">obtén beneficios complementarios</span>
                 </h2>
 
                 {/* Call to Action Button */}
-                <Link href="/shop">
-                  <Button
-                    variant="primary"
-                    size="large"
-                    className="bg-pink-500 hover:bg-pink-600 text-white font-semibold px-8 py-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
-                  >
-                    COMPRA AHORA
-                  </Button>
-                </Link>
+                <div className="mt-4 sm:mt-6">
+                  <Link href="/shop">
+                    <Button
+                      variant="primary"
+                      size="large"
+                      className="bg-pink-500 hover:bg-pink-600 text-white font-semibold px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+                    >
+                      COMPRA AHORA
+                    </Button>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -100,11 +103,11 @@ export const HeroSection = () => {
       </div>
 
       {/* Content Section */}
-      <div className="relative w-full py-12 md:py-16 bg-gradient-to-b from-white to-pink-50">
+      <div className="relative w-full py-8 sm:py-12 md:py-16 bg-gradient-to-b from-white to-pink-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           {/* Subtitle */}
           <p
-            className={`text-lg md:text-xl lg:text-2xl text-gray-700 mb-10 max-w-4xl mx-auto leading-relaxed transform transition-all duration-1000 delay-400 ${
+            className={`text-base sm:text-lg md:text-xl lg:text-2xl text-gray-700 mb-6 sm:mb-8 md:mb-10 max-w-4xl mx-auto leading-relaxed transform transition-all duration-1000 delay-400 ${
               isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
             }`}
           >
@@ -114,31 +117,29 @@ export const HeroSection = () => {
 
           {/* Slideshow Banner - Below Subtitle */}
           <div
-            className={`relative w-full max-w-6xl mx-auto mb-10 transform transition-all duration-1000 delay-500 ${
+            className={`relative w-full max-w-6xl mx-auto mb-6 sm:mb-8 md:mb-10 transform transition-all duration-1000 delay-500 ${
               isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
             }`}
           >
             <div className="relative w-full overflow-hidden group rounded-2xl shadow-2xl">
-              {/* Slideshow Images */}
-              <div className="relative w-full">
+              {/* Slideshow Images Container - Fixed aspect ratio */}
+              <div className="relative w-full aspect-[16/7] md:aspect-[21/9]">
                 {slides.map((slide, index) => (
                   <div
                     key={index}
-                    className={`relative w-full transition-opacity duration-1000 ${
-                      index === currentSlide ? "opacity-100" : "opacity-0 absolute inset-0"
+                    className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ${
+                      index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
                     }`}
                   >
-                    <div className="relative w-full aspect-[16/7] md:aspect-[21/9]">
-                      <Image
-                        src={slide}
-                        alt={`KAHI Beauty Slide ${index + 1}`}
-                        fill
-                        className="object-cover"
-                        quality={100}
-                        priority={index === 0}
-                        sizes="100vw"
-                      />
-                    </div>
+                    <Image
+                      src={slide}
+                      alt={`KAHI Beauty Slide ${index + 1}`}
+                      fill
+                      className="object-cover"
+                      quality={100}
+                      priority={index === 0}
+                      sizes="100vw"
+                    />
                   </div>
                 ))}
               </div>
@@ -179,38 +180,38 @@ export const HeroSection = () => {
 
           {/* Feature Badges */}
           <div
-            className={`flex flex-wrap justify-center gap-4 mb-10 transform transition-all duration-1000 delay-600 ${
+            className={`flex flex-wrap justify-center gap-3 sm:gap-4 mb-6 sm:mb-8 md:mb-10 transform transition-all duration-1000 delay-600 ${
               isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
             }`}
           >
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="flex items-center gap-2 px-6 py-3 bg-white rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 border border-pink-100"
+                className="flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-white rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 border border-pink-100"
               >
-                <feature.icon className="h-5 w-5 text-pink-500" />
-                <span className="font-semibold text-gray-900">{feature.text}</span>
+                <feature.icon className="h-4 w-4 sm:h-5 sm:w-5 text-pink-500" />
+                <span className="text-sm sm:text-base font-semibold text-gray-900">{feature.text}</span>
               </div>
             ))}
           </div>
 
           {/* CTA Buttons */}
           <div
-            className={`flex flex-col sm:flex-row gap-4 justify-center items-center transform transition-all duration-1000 delay-700 ${
+            className={`flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center transform transition-all duration-1000 delay-700 ${
               isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
             }`}
           >
-            <Link href="/shop">
+            <Link href="/shop" className="w-full sm:w-auto">
               <Button
                 variant="primary"
                 size="large"
-                className="min-w-[200px] bg-pink-500 hover:bg-pink-600 text-white font-semibold rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+                className="w-full sm:w-auto sm:min-w-[200px] bg-pink-500 hover:bg-pink-600 text-white font-semibold rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
               >
                 Comprar Ahora
               </Button>
             </Link>
-            <Link href="/about">
-              <Button variant="outline" size="large" className="min-w-[200px] rounded-full">
+            <Link href="/about" className="w-full sm:w-auto">
+              <Button variant="outline" size="large" className="w-full sm:w-auto sm:min-w-[200px] rounded-full">
                 Saber Más
               </Button>
             </Link>

@@ -5,7 +5,7 @@ import { formatPrice, calculateDiscount } from "@/lib/utils";
 import { Star, ShoppingCart, Heart } from "lucide-react";
 import { Button } from "./Button";
 import { Badge } from "./Badge";
-import { useState } from "react";
+import { useState, useCallback, memo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -14,7 +14,7 @@ interface ProductCardProps {
   onAddToCart?: (product: Product) => void;
 }
 
-export const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
+export const ProductCard = memo(({ product, onAddToCart }: ProductCardProps) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [imageError, setImageError] = useState(false);
@@ -23,26 +23,31 @@ export const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
     ? calculateDiscount(product.originalPrice, product.price)
     : 0;
 
-  const handleAddToCart = (e: React.MouseEvent) => {
+  // Memoize handlers for performance
+  const handleAddToCart = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    if (onAddToCart) {
+    if (onAddToCart && product.inStock) {
       onAddToCart(product);
     }
-  };
+  }, [onAddToCart, product]);
 
-  const handleFavoriteClick = (e: React.MouseEvent) => {
+  const handleFavoriteClick = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsFavorite(!isFavorite);
-  };
+    setIsFavorite((prev) => !prev);
+  }, []);
+
+  const handleMouseEnter = useCallback(() => setIsHovered(true), []);
+  const handleMouseLeave = useCallback(() => setIsHovered(false), []);
+  const handleImageError = useCallback(() => setImageError(true), []);
 
   return (
     <Link href={`/product/${product.slug}`}>
       <div
         className="group relative bg-transparent overflow-hidden transition-all duration-500 hover:-translate-y-2 cursor-pointer"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
         {/* Badges */}
         <div className="absolute top-4 left-4 z-10 flex flex-col gap-2">
@@ -88,11 +93,11 @@ export const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
               fill
               quality={100}
               priority={product.isBestSeller}
-              className={`object-contain p-8 transition-all duration-700 mix-blend-multiply ${
+              className={`object-contain p-2 sm:p-4 transition-all duration-700 mix-blend-multiply ${
                 isHovered ? "scale-105" : "scale-100"
               }`}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              onError={() => setImageError(true)}
+              onError={handleImageError}
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center bg-pink-50">
@@ -188,20 +193,6 @@ export const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
             )}
           </div>
 
-          {/* Stock Status */}
-          <div className="mt-4">
-            {product.inStock ? (
-              <p className="text-xs text-green-600 font-semibold flex items-center gap-1">
-                <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                En Stock - Envío Inmediato
-              </p>
-            ) : (
-              <p className="text-xs text-red-600 font-semibold flex items-center gap-1">
-                <span className="w-2 h-2 bg-red-500 rounded-full"></span>
-                Sin Stock
-              </p>
-            )}
-          </div>
         </div>
 
         {/* Bottom border animation */}
@@ -213,4 +204,7 @@ export const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
       </div>
     </Link>
   );
-};
+});
+
+// Display name for debugging
+ProductCard.displayName = "ProductCard";

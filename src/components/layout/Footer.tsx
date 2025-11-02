@@ -74,24 +74,24 @@ export const Footer = () => {
   };
 
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className="bg-pink-100 text-gray-900">
       {/* Newsletter Section */}
-      <div className="border-b border-gray-800">
+      <div className="border-b border-pink-200">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-12">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
-              <h3 className="text-2xl lg:text-3xl font-bold mb-2">
+              <h3 className="text-2xl lg:text-3xl font-bold mb-2 text-gray-900">
                 Unite a Nuestro Newsletter
               </h3>
-              <p className="text-gray-400">
+              <p className="text-gray-700">
                 Suscribite para ofertas exclusivas, consejos de cuidado de la piel y acceso anticipado a nuevos productos
               </p>
             </div>
 
             <div>
               {isSubscribed ? (
-                <div className="bg-green-500/20 border border-green-500 rounded-lg p-4 text-center">
-                  <p className="text-green-400 font-semibold">
+                <div className="bg-green-100 border border-green-500 rounded-lg p-4 text-center">
+                  <p className="text-green-700 font-semibold">
                     ✓ ¡Gracias por suscribirte! Revisá tu correo para recibir un regalo de bienvenida.
                   </p>
                 </div>
@@ -104,7 +104,7 @@ export const Footer = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       error={emailError}
-                      className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500"
+                      className="bg-white border-pink-300 text-gray-900 placeholder:text-gray-500"
                     />
                   </div>
                   <Button
@@ -128,17 +128,18 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            <Link href="/" className="inline-block mb-6">
+            <Link href="/" className="inline-block mb-4">
               <Image
                 src="/images/logo.png"
                 alt="BLUMIN Logo"
                 width={480}
                 height={160}
-                className="h-72 w-auto brightness-0 invert"
+                className="h-48 lg:h-56 w-auto"
+                priority
               />
             </Link>
 
-            <p className="text-gray-400 mb-6 leading-relaxed">
+            <p className="text-gray-700 mb-6 leading-relaxed">
               Descubrí tu hermoso cambio con el cuidado de piel coreano premium.
               Productos KAHI con ADN de Salmón, Aceite de Jeju y tecnología FILMEXEL™.
             </p>
@@ -147,19 +148,19 @@ export const Footer = () => {
             <div className="space-y-3 mb-6">
               <a
                 href="mailto:hello@blumin.com"
-                className="flex items-center gap-3 text-gray-400 hover:text-pink-400 transition-colors"
+                className="flex items-center gap-3 text-gray-700 hover:text-pink-600 transition-colors"
               >
                 <Mail className="h-5 w-5" />
                 <span>hello@blumin.com</span>
               </a>
               <a
                 href="tel:+5511999999999"
-                className="flex items-center gap-3 text-gray-400 hover:text-pink-400 transition-colors"
+                className="flex items-center gap-3 text-gray-700 hover:text-pink-600 transition-colors"
               >
                 <Phone className="h-5 w-5" />
                 <span>+55 11 99999-9999</span>
               </a>
-              <div className="flex items-center gap-3 text-gray-400">
+              <div className="flex items-center gap-3 text-gray-700">
                 <MapPin className="h-5 w-5" />
                 <span>Buenos Aires, Argentina</span>
               </div>
@@ -171,7 +172,7 @@ export const Footer = () => {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-pink-500 transition-all duration-300 hover:scale-110"
+                className="w-10 h-10 rounded-full bg-pink-200 text-gray-900 flex items-center justify-center hover:bg-pink-500 hover:text-white transition-all duration-300 hover:scale-110"
                 aria-label="Instagram"
               >
                 <Instagram className="h-5 w-5" />
@@ -180,7 +181,7 @@ export const Footer = () => {
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-pink-500 transition-all duration-300 hover:scale-110"
+                className="w-10 h-10 rounded-full bg-pink-200 text-gray-900 flex items-center justify-center hover:bg-pink-500 hover:text-white transition-all duration-300 hover:scale-110"
                 aria-label="Facebook"
               >
                 <Facebook className="h-5 w-5" />
@@ -189,7 +190,7 @@ export const Footer = () => {
                 href="https://youtube.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-pink-500 transition-all duration-300 hover:scale-110"
+                className="w-10 h-10 rounded-full bg-pink-200 text-gray-900 flex items-center justify-center hover:bg-pink-500 hover:text-white transition-all duration-300 hover:scale-110"
                 aria-label="YouTube"
               >
                 <Youtube className="h-5 w-5" />
@@ -199,7 +200,7 @@ export const Footer = () => {
 
           {/* Shop Links */}
           <div>
-            <h3 className="text-lg font-bold mb-6 uppercase tracking-wide">
+            <h3 className="text-lg font-bold mb-6 uppercase tracking-wide text-gray-900">
               Tienda
             </h3>
             <ul className="space-y-3">
@@ -207,7 +208,7 @@ export const Footer = () => {
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-gray-400 hover:text-pink-400 transition-colors"
+                    className="text-gray-700 hover:text-pink-600 transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -218,7 +219,7 @@ export const Footer = () => {
 
           {/* About Links */}
           <div>
-            <h3 className="text-lg font-bold mb-6 uppercase tracking-wide">
+            <h3 className="text-lg font-bold mb-6 uppercase tracking-wide text-gray-900">
               Nosotros
             </h3>
             <ul className="space-y-3">
@@ -226,7 +227,7 @@ export const Footer = () => {
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-gray-400 hover:text-pink-400 transition-colors"
+                    className="text-gray-700 hover:text-pink-600 transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -237,7 +238,7 @@ export const Footer = () => {
 
           {/* Support Links */}
           <div>
-            <h3 className="text-lg font-bold mb-6 uppercase tracking-wide">
+            <h3 className="text-lg font-bold mb-6 uppercase tracking-wide text-gray-900">
               Soporte
             </h3>
             <ul className="space-y-3">
@@ -245,7 +246,7 @@ export const Footer = () => {
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-gray-400 hover:text-pink-400 transition-colors"
+                    className="text-gray-700 hover:text-pink-600 transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -257,11 +258,11 @@ export const Footer = () => {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-gray-800">
+      <div className="border-t border-pink-200">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             {/* Copyright */}
-            <div className="text-gray-400 text-sm text-center md:text-left">
+            <div className="text-gray-700 text-sm text-center md:text-left">
               <p>
                 © {new Date().getFullYear()} BLUMIN. Todos los derechos reservados. | Powered by KAHI Cosmetics
               </p>
@@ -269,12 +270,12 @@ export const Footer = () => {
 
             {/* Payment Methods */}
             <div className="flex items-center gap-4">
-              <span className="text-gray-500 text-sm">Aceptamos:</span>
+              <span className="text-gray-700 text-sm">Aceptamos:</span>
               <div className="flex gap-2">
                 {paymentMethods.map((method) => (
                   <div
                     key={method.name}
-                    className="w-12 h-8 bg-gray-800 rounded flex items-center justify-center text-xl hover:bg-gray-700 transition-colors"
+                    className="w-12 h-8 bg-pink-200 rounded flex items-center justify-center text-xl hover:bg-pink-300 transition-colors"
                     title={method.name}
                   >
                     {method.icon}
@@ -285,11 +286,11 @@ export const Footer = () => {
           </div>
 
           {/* Certifications */}
-          <div className="mt-6 flex flex-wrap justify-center gap-4 text-xs text-gray-500">
-            <span className="px-3 py-1 bg-gray-800 rounded-full">✓ 100% Vegano</span>
-            <span className="px-3 py-1 bg-gray-800 rounded-full">✓ Libre de Crueldad</span>
-            <span className="px-3 py-1 bg-gray-800 rounded-full">✓ Dermatológicamente Testado</span>
-            <span className="px-3 py-1 bg-gray-800 rounded-full">✓ Eco-Consciente</span>
+          <div className="mt-6 flex flex-wrap justify-center gap-4 text-xs text-gray-700">
+            <span className="px-3 py-1 bg-pink-200 rounded-full">✓ 100% Vegano</span>
+            <span className="px-3 py-1 bg-pink-200 rounded-full">✓ Libre de Crueldad</span>
+            <span className="px-3 py-1 bg-pink-200 rounded-full">✓ Dermatológicamente Testado</span>
+            <span className="px-3 py-1 bg-pink-200 rounded-full">✓ Eco-Consciente</span>
           </div>
         </div>
       </div>

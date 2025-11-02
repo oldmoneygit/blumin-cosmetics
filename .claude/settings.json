@@ -1,0 +1,33 @@
+{
+  "mcpServers": {},
+  "hooks": {
+    "UserPromptSubmit": {
+      "description": "Auto-suggest skills based on context",
+      "command": "npx",
+      "args": ["tsx", ".claude/hooks/skill-activation-prompt.ts"],
+      "timeout": 5000
+    },
+    "PostToolUse": {
+      "description": "Track file changes across sessions",
+      "command": "bash",
+      "args": [".claude/hooks/post-tool-use-tracker.sh"],
+      "timeout": 5000
+    }
+  },
+  "allowedBashCommands": [
+    "npm",
+    "node",
+    "git",
+    "ls",
+    "cat",
+    "cd",
+    "pwd",
+    "find",
+    "grep"
+  ],
+  "autoApprovalRegexes": {
+    "Edit": [".*"],
+    "Write": [".*"],
+    "Bash": ["^npm", "^node", "^git", "^ls", "^cat", "^cd", "^pwd"]
+  }
+}

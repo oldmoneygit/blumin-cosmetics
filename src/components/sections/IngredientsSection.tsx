@@ -49,24 +49,14 @@ export const IngredientsSection = ({ ingredients }: IngredientsSectionProps) => 
                 onMouseEnter={() => setSelectedIngredient(ingredient.id)}
                 onMouseLeave={() => setSelectedIngredient(null)}
               >
-                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl group">
-                  {/* Placeholder for ingredient image */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-pink-100 to-pink-200 flex items-center justify-center">
-                    <div className="text-center p-8">
-                      <Sparkles className="h-20 w-20 text-pink-400 mx-auto mb-4 opacity-50" />
-                      <p className="text-gray-500 font-semibold">
-                        {ingredient.name}
-                      </p>
-                    </div>
-                  </div>
-
+                <div className="relative aspect-[3/4] overflow-hidden group">
                   {/* Actual image when available */}
                   {ingredient.image && (
                     <Image
                       src={ingredient.image}
                       alt={ingredient.name}
                       fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                      className="object-contain transition-transform duration-700 group-hover:scale-105"
                       sizes="(max-width: 768px) 100vw, 50vw"
                     />
                   )}
@@ -84,9 +74,6 @@ export const IngredientsSection = ({ ingredients }: IngredientsSectionProps) => 
                     </div>
                   </div>
                 </div>
-
-                {/* Decorative element */}
-                <div className="absolute -z-10 -top-6 -right-6 w-full h-full bg-gradient-to-br from-pink-200 to-pink-300 rounded-2xl opacity-20"></div>
               </div>
 
               {/* Content */}

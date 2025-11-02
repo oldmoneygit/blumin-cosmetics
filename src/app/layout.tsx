@@ -1,26 +1,19 @@
 import type { Metadata } from "next";
-import { Montserrat, Lato, Playfair_Display } from "next/font/google";
+import { Roboto, Assistant } from "next/font/google";
 import "../styles/globals.css";
 
-const montserrat = Montserrat({
+const roboto = Roboto({
   subsets: ["latin"],
-  variable: "--font-montserrat",
+  variable: "--font-roboto",
   display: "swap",
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500", "700", "900"],
 });
 
-const lato = Lato({
+const assistant = Assistant({
   subsets: ["latin"],
-  variable: "--font-lato",
+  variable: "--font-assistant",
   display: "swap",
-  weight: ["400", "700"],
-});
-
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair",
-  display: "swap",
-  weight: ["400", "700"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -62,9 +55,9 @@ export default function RootLayout({
   return (
     <html
       lang="es-AR"
-      className={`${montserrat.variable} ${lato.variable} ${playfair.variable}`}
+      className={`${roboto.variable} ${assistant.variable}`}
     >
-      <body className="antialiased">
+      <body className={`${assistant.variable} font-assistant antialiased`}>
         {children}
       </body>
     </html>

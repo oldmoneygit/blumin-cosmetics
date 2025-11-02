@@ -35,9 +35,9 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ['var(--font-montserrat)', 'sans-serif'],
-        secondary: ['var(--font-lato)', 'sans-serif'],
-        accent: ['var(--font-playfair)', 'serif'],
+        sans: ['var(--font-assistant)', 'sans-serif'],
+        heading: ['var(--font-roboto)', 'sans-serif'],
+        body: ['var(--font-assistant)', 'sans-serif'],
       },
       animation: {
         'fade-in': 'fadeIn 0.6s ease-out',

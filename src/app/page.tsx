@@ -4,7 +4,10 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { BestSellersSection } from "@/components/sections/BestSellersSection";
-import { BannerCarousel } from "@/components/sections/BannerCarousel";
+import { ProductHighlights } from "@/components/sections/ProductHighlights";
+import { InteractiveLookbook } from "@/components/sections/InteractiveLookbook";
+import { CategoriesSection } from "@/components/sections/CategoriesSection";
+import { AboutKahiSection } from "@/components/sections/AboutKahiSection";
 import { IngredientsSection } from "@/components/sections/IngredientsSection";
 import { FAQSection } from "@/components/sections/FAQSection";
 import { products, ingredients, faqs } from "@/data/products";
@@ -28,7 +31,13 @@ export default function HomePage() {
 
       <BestSellersSection products={products} onAddToCart={handleAddToCart} />
 
-      <BannerCarousel />
+      <ProductHighlights />
+
+      <InteractiveLookbook />
+
+      <CategoriesSection />
+
+      <AboutKahiSection />
 
       <IngredientsSection ingredients={ingredients} />
 

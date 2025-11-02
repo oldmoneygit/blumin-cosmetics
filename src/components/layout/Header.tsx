@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, memo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, X, ShoppingCart, Search, Heart, User } from "lucide-react";
 import { Button } from "../ui/Button";
 import { cn } from "@/lib/utils";
 
+// Navigation configuration
 const navigation = [
   { name: "Inicio", href: "/" },
   { name: "Tienda", href: "/shop" },
@@ -14,34 +15,59 @@ const navigation = [
   { name: "Novedades", href: "/shop?filter=new" },
   { name: "Nosotros", href: "/about" },
   { name: "Contacto", href: "/contact" },
-];
+] as const;
+
+// Scroll threshold constants
+const SCROLL_THRESHOLD = 50;
 
 interface HeaderProps {
   cartItemCount?: number;
 }
 
-export const Header = ({ cartItemCount = 0 }: HeaderProps) => {
+export const Header = memo(({ cartItemCount = 0 }: HeaderProps) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [lastScrollY, setLastScrollY] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
 
+  // Memoize handlers
+  const toggleMobileMenu = useCallback(() => {
+    setMobileMenuOpen((prev) => !prev);
+  }, []);
+
+  const closeMobileMenu = useCallback(() => {
+    setMobileMenuOpen(false);
+  }, []);
+
   useEffect(() => {
+    let rafId: number | null = null;
+
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
+      // Cancel previous animation frame if it exists
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+      }
 
-      // Header background changes after 50px - becomes transparent
-      setIsScrolled(currentScrollY > 50);
+      // Use requestAnimationFrame for better performance
+      rafId = requestAnimationFrame(() => {
+        const currentScrollY = window.scrollY;
 
-      // Keep header always visible (sticky)
-      setIsVisible(true);
+        // Header background changes after threshold
+        setIsScrolled(currentScrollY > SCROLL_THRESHOLD);
 
-      setLastScrollY(currentScrollY);
+        // Keep header always visible (sticky)
+        setIsVisible(true);
+      });
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+      }
+    };
+  }, []);
 
   // Close mobile menu when route changes
   useEffect(() => {
@@ -51,20 +77,22 @@ export const Header = ({ cartItemCount = 0 }: HeaderProps) => {
 
   return (
     <>
-      {/* Announcement Bar */}
-      <div className="bg-pink-400 text-white text-center py-2 px-4 text-sm font-semibold">
+      {/* Announcement Bar - Fixed at top */}
+      <div className="fixed top-0 left-0 right-0 z-[100] bg-pink-400 text-white text-center py-2 px-4 text-base font-semibold flex items-center justify-center" style={{ height: '36px' }}>
         <p>
-          Envío Gratis en Compras Superiores a $50 • ¡Comprá Ahora y Obtén 20% de Descuento en tu Primera Compra!
+          Envío gratis a toda Argentina
         </p>
       </div>
 
-      {/* Main Header */}
+      {/* Main Header - Fixed below topbar */}
       <header
         className={cn(
-          "fixed left-0 right-0 z-50 transition-all duration-500",
+          "fixed left-0 right-0 transition-all duration-500",
+          // Always below announcement bar (exactly 36px from top)
+          "top-[36px] z-40",
           isScrolled
-            ? "top-0 bg-white/20 backdrop-blur-md shadow-sm"
-            : "top-9 bg-white/95 backdrop-blur-lg shadow-lg",
+            ? "bg-white/20 backdrop-blur-md shadow-sm"
+            : "bg-white/95 backdrop-blur-lg shadow-lg",
           isVisible ? "translate-y-0" : "-translate-y-full"
         )}
       >
@@ -74,10 +102,11 @@ export const Header = ({ cartItemCount = 0 }: HeaderProps) => {
             <button
               type="button"
               className="lg:hidden -m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 hover:text-pink-500 transition-colors"
-              onClick={() => setMobileMenuOpen(true)}
-              aria-label="Open menu"
+              onClick={toggleMobileMenu}
+              aria-label="Abrir menú"
+              aria-expanded={mobileMenuOpen}
             >
-              <Menu className="h-6 w-6" />
+              <Menu className="h-6 w-6" aria-hidden="true" />
             </button>
 
             {/* Logo */}
@@ -93,12 +122,12 @@ export const Header = ({ cartItemCount = 0 }: HeaderProps) => {
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex lg:gap-x-4">
+            <div className="hidden lg:flex lg:gap-x-6">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="text-xs font-semibold text-gray-700 hover:text-pink-500 transition-colors duration-300 relative group whitespace-nowrap"
+                  className="text-base font-semibold text-gray-700 hover:text-pink-500 transition-colors duration-300 relative group whitespace-nowrap"
                 >
                   {item.name}
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-400 group-hover:w-full transition-all duration-300"></span>
@@ -166,7 +195,7 @@ export const Header = ({ cartItemCount = 0 }: HeaderProps) => {
             "fixed inset-0 bg-gray-900/80 backdrop-blur-sm transition-opacity duration-500",
             mobileMenuOpen ? "opacity-100" : "opacity-0"
           )}
-          onClick={() => setMobileMenuOpen(false)}
+          onClick={closeMobileMenu}
         />
 
         {/* Menu Panel */}
@@ -175,10 +204,13 @@ export const Header = ({ cartItemCount = 0 }: HeaderProps) => {
             "fixed inset-y-0 left-0 w-full max-w-sm bg-white shadow-2xl transition-transform duration-500 overflow-y-auto",
             mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
           )}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Menú de navegación móvil"
         >
           {/* Header */}
           <div className="flex items-center justify-between px-6 py-6 border-b border-gray-200">
-            <Link href="/" onClick={() => setMobileMenuOpen(false)}>
+            <Link href="/" onClick={closeMobileMenu}>
               <Image
                 src="/images/logo.png"
                 alt="BLUMIN Logo"
@@ -190,10 +222,10 @@ export const Header = ({ cartItemCount = 0 }: HeaderProps) => {
             <button
               type="button"
               className="-m-2.5 rounded-md p-2.5 text-gray-700 hover:text-pink-500 transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
-              aria-label="Close menu"
+              onClick={closeMobileMenu}
+              aria-label="Cerrar menú"
             >
-              <X className="h-6 w-6" />
+              <X className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
 
@@ -203,8 +235,8 @@ export const Header = ({ cartItemCount = 0 }: HeaderProps) => {
               <Link
                 key={item.name}
                 href={item.href}
-                className="block px-4 py-3 text-base font-semibold text-gray-900 hover:bg-pink-50 hover:text-pink-600 rounded-lg transition-all duration-300"
-                onClick={() => setMobileMenuOpen(false)}
+                className="block px-4 py-3 text-lg font-semibold text-gray-900 hover:bg-pink-50 hover:text-pink-600 rounded-lg transition-all duration-300"
+                onClick={closeMobileMenu}
               >
                 {item.name}
               </Link>
@@ -213,26 +245,29 @@ export const Header = ({ cartItemCount = 0 }: HeaderProps) => {
 
           {/* Mobile Actions */}
           <div className="border-t border-gray-200 px-6 py-6 space-y-4">
-            <button className="flex items-center gap-3 w-full px-4 py-3 text-base font-semibold text-gray-900 hover:bg-pink-50 hover:text-pink-600 rounded-lg transition-all duration-300">
-              <Search className="h-5 w-5" />
+            <button
+              className="flex items-center gap-3 w-full px-4 py-3 text-lg font-semibold text-gray-900 hover:bg-pink-50 hover:text-pink-600 rounded-lg transition-all duration-300"
+              aria-label="Buscar productos"
+            >
+              <Search className="h-5 w-5" aria-hidden="true" />
               <span>Buscar Productos</span>
             </button>
 
             <Link
               href="/wishlist"
-              className="flex items-center gap-3 w-full px-4 py-3 text-base font-semibold text-gray-900 hover:bg-pink-50 hover:text-pink-600 rounded-lg transition-all duration-300"
-              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-3 w-full px-4 py-3 text-lg font-semibold text-gray-900 hover:bg-pink-50 hover:text-pink-600 rounded-lg transition-all duration-300"
+              onClick={closeMobileMenu}
             >
-              <Heart className="h-5 w-5" />
+              <Heart className="h-5 w-5" aria-hidden="true" />
               <span>Favoritos</span>
             </Link>
 
             <Link
               href="/account"
-              className="flex items-center gap-3 w-full px-4 py-3 text-base font-semibold text-gray-900 hover:bg-pink-50 hover:text-pink-600 rounded-lg transition-all duration-300"
-              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-3 w-full px-4 py-3 text-lg font-semibold text-gray-900 hover:bg-pink-50 hover:text-pink-600 rounded-lg transition-all duration-300"
+              onClick={closeMobileMenu}
             >
-              <User className="h-5 w-5" />
+              <User className="h-5 w-5" aria-hidden="true" />
               <span>Mi Cuenta</span>
             </Link>
           </div>
@@ -243,7 +278,7 @@ export const Header = ({ cartItemCount = 0 }: HeaderProps) => {
               variant="primary"
               size="large"
               className="w-full"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={closeMobileMenu}
             >
               <Link href="/shop">Comenzar a Comprar</Link>
             </Button>
@@ -294,4 +329,7 @@ export const Header = ({ cartItemCount = 0 }: HeaderProps) => {
       </div>
     </>
   );
-};
+});
+
+// Display name for debugging
+Header.displayName = "Header";

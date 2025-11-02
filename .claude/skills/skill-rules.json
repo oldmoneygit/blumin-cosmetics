@@ -1,0 +1,109 @@
+{
+    "version": "1.0",
+    "description": "Skill activation triggers for Blumin E-commerce - Next.js/React/TypeScript project",
+    "skills": {
+        "frontend-dev-guidelines": {
+            "type": "domain",
+            "enforcement": "suggest",
+            "priority": "high",
+            "description": "React/Next.js/TypeScript best practices for Blumin project",
+            "promptTriggers": {
+                "keywords": [
+                    "component",
+                    "react component",
+                    "UI",
+                    "interface",
+                    "page",
+                    "modal",
+                    "dialog",
+                    "form",
+                    "frontend",
+                    "React",
+                    "Next.js",
+                    "next",
+                    "tailwind",
+                    "styling",
+                    "layout",
+                    "client component",
+                    "server component",
+                    "zustand",
+                    "state",
+                    "hook",
+                    "useEffect",
+                    "useState"
+                ],
+                "intentPatterns": [
+                    "(criar|create|add|make|build|update|modify|edit).*?(component|UI|page|modal|dialog|form)",
+                    "(como|how to|best practice).*?(component|react|next)",
+                    "(estilizar|style|design|layout).*?(component|UI)",
+                    "(implementar|implement|adicionar|add).*?(feature|funcionalidade|estado|state)",
+                    "(refatorar|refactor|melhorar|improve).*?(component|código)"
+                ]
+            },
+            "fileTriggers": {
+                "pathPatterns": [
+                    "app/**/*.tsx",
+                    "app/**/*.ts",
+                    "components/**/*.tsx",
+                    "lib/**/*.ts",
+                    "hooks/**/*.ts",
+                    "types/**/*.ts"
+                ],
+                "pathExclusions": [
+                    "**/*.test.tsx",
+                    "**/*.test.ts",
+                    "**/*.spec.tsx",
+                    "**/*.spec.ts",
+                    "**/node_modules/**",
+                    "**/.next/**",
+                    "**/next.config.js",
+                    "**/tailwind.config.ts"
+                ],
+                "contentPatterns": [
+                    "'use client'",
+                    "'use server'",
+                    "useState",
+                    "useEffect",
+                    "useStore",
+                    "cn\\(",
+                    "className=",
+                    "from 'next/",
+                    "export default function",
+                    "framer-motion",
+                    "lucide-react"
+                ]
+            },
+            "skipConditions": {
+                "sessionSkillUsed": false,
+                "fileMarkers": [
+                    "@skip-validation"
+                ],
+                "envOverride": "SKIP_FRONTEND_GUIDELINES"
+            }
+        }
+    },
+    "notes": {
+        "blumin_specific": {
+            "stack": "Next.js 16 App Router + React 19 + TypeScript 5.9",
+            "styling": "Tailwind CSS 3.4 with custom theme",
+            "state": "Zustand 5.0 for global state",
+            "structure": "App Router pattern with server/client components"
+        },
+        "enforcement_types": {
+            "suggest": "Skill suggestion appears but doesn't block execution",
+            "block": "Requires skill to be used before proceeding (guardrail)",
+            "warn": "Shows warning but allows proceeding"
+        },
+        "priority_levels": {
+            "critical": "Highest - Always trigger when matched",
+            "high": "Important - Trigger for most matches",
+            "medium": "Moderate - Trigger for clear matches",
+            "low": "Optional - Trigger only for explicit matches"
+        },
+        "future_skills": {
+            "backend": "Add backend-dev-guidelines when implementing API routes or Express backend",
+            "error_tracking": "Add error-tracking when implementing Sentry integration",
+            "route_tester": "Add route-tester when implementing authenticated endpoints"
+        }
+    }
+}

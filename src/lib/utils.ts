@@ -16,10 +16,11 @@ export function cn(...inputs: ClassValue[]) {
  * @returns Formatted price string
  */
 export function formatPrice(price: number): string {
-  return new Intl.NumberFormat("es-AR", {
-    style: "currency",
-    currency: "ARS",
+  const formatted = new Intl.NumberFormat("es-AR", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
   }).format(price);
+  return `$${formatted.replace(/\s/g, "")}`;
 }
 
 /**
@@ -28,10 +29,11 @@ export function formatPrice(price: number): string {
  * @returns Formatted price string
  */
 export function formatPriceUSD(price: number): string {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
+  const formatted = new Intl.NumberFormat("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
   }).format(price);
+  return `$${formatted.replace(/\s/g, "")}`;
 }
 
 /**
@@ -40,7 +42,7 @@ export function formatPriceUSD(price: number): string {
  * @returns Formatted date string
  */
 export function formatDate(date: Date): string {
-  return new Intl.DateFormat("es-AR", {
+  return new Intl.DateTimeFormat("es-AR", {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -53,7 +55,7 @@ export function formatDate(date: Date): string {
  * @returns Formatted date string (DD/MM/YYYY)
  */
 export function formatDateShort(date: Date): string {
-  return new Intl.DateFormat("es-AR", {
+  return new Intl.DateTimeFormat("es-AR", {
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
