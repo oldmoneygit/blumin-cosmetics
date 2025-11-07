@@ -38,3 +38,6 @@ next-env.d.ts
 
 # Problematic files
 nul
+
+# Config files with secrets
+CONFIGURACAO_SHOPIFY_COMPLETA.md
