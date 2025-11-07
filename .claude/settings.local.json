@@ -15,7 +15,13 @@
       "Bash(nul)",
       "Bash(echo:*)",
       "Bash(npx tsx:*)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(git push:*)",
+      "Bash(git rev-list:*)",
+      "Bash(git rm:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nsecurity: remover arquivo com credenciais sensíveis\n\n- Remover CONFIGURACAO_SHOPIFY_COMPLETA.md contendo Shopify Access Token\n- Adicionar arquivo ao .gitignore para prevenir futuros commits\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git filter-branch:*)",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "ask": []
