@@ -11,8 +11,10 @@ import { cn } from "@/lib/utils";
 const navigation = [
   { name: "Inicio", href: "/" },
   { name: "Tienda", href: "/shop" },
+  { name: "Skincare", href: "/shop/skincare" },
   { name: "Más Vendidos", href: "/shop?filter=best-sellers" },
   { name: "Novedades", href: "/shop?filter=new" },
+  { name: "Reseñas", href: "/reviews" },
   { name: "Nosotros", href: "/about" },
   { name: "Contacto", href: "/contact" },
 ] as const;

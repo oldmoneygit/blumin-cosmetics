@@ -33,6 +33,9 @@ export interface Review {
   comment: string;
   date: Date;
   verified: boolean;
+  images?: string[];
+  video?: string;
+  helpful?: number;
 }
 
 export interface Ingredient {

@@ -11,16 +11,19 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 /**
- * Format price in Argentine Peso
+ * Format price in Argentine Peso (ARS)
  * @param price - Price in ARS
- * @returns Formatted price string
+ * @returns Formatted price string with AR$ prefix
  */
 export function formatPrice(price: number): string {
   const formatted = new Intl.NumberFormat("es-AR", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
+    style: "currency",
+    currency: "ARS",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
   }).format(price);
-  return `$${formatted.replace(/\s/g, "")}`;
+  // Replace default ARS symbol with AR$
+  return formatted.replace(/ARS/, "AR$").replace(/\s/g, "");
 }
 
 /**

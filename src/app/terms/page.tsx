@@ -15,7 +15,7 @@ export default function TermsPage() {
               <FileText className="w-8 h-8" />
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight text-gray-900 mb-6">
-              Términos y Condiciones
+              Términos de Servicio
             </h1>
             <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
               Última actualización: {new Date().toLocaleDateString("es-AR", { year: "numeric", month: "long", day: "numeric" })}
@@ -104,28 +104,6 @@ export default function TermsPage() {
               </div>
             </div>
 
-            {/* Privacy and Data */}
-            <div>
-              <div className="flex items-center gap-3 mb-4">
-                <Lock className="w-6 h-6 text-pink-600" />
-                <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-gray-900">
-                  Privacidad y Protección de Datos
-                </h2>
-              </div>
-              <div className="space-y-4 text-gray-700 leading-relaxed">
-                <p>
-                  Tu privacidad es importante para nosotros. Al utilizar nuestro sitio, 
-                  aceptás nuestra Política de Privacidad que describe cómo recopilamos, 
-                  usamos y protegemos tu información personal.
-                </p>
-                <p>
-                  No compartimos tu información personal con terceros sin tu consentimiento, 
-                  excepto cuando sea necesario para procesar tu pedido o cumplir con 
-                  obligaciones legales.
-                </p>
-              </div>
-            </div>
-
             {/* Returns and Refunds */}
             <div>
               <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-gray-900 mb-4">
@@ -182,7 +160,7 @@ export default function TermsPage() {
                 Contacto
               </h2>
               <p className="text-gray-700 leading-relaxed mb-4">
-                Si tenés alguna pregunta sobre estos términos y condiciones, 
+                Si tenés alguna pregunta sobre estos términos de servicio, 
                 por favor{" "}
                 <a href="/contact" className="text-pink-600 font-semibold hover:text-pink-700">
                   contactanos
@@ -201,4 +179,3 @@ export default function TermsPage() {
     </main>
   );
 }
-

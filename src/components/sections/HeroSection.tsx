@@ -29,6 +29,7 @@ export const HeroSection = () => {
   const slides = [
     "/images/slide1.png",
     "/images/slide3.png",
+    "/images/lookbook-slide-2.png",
   ];
 
   useEffect(() => {

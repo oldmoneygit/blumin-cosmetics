@@ -108,7 +108,7 @@ export const InteractiveLookbook = () => {
         {/* Section Title */}
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tight text-gray-900 mb-4">
-            SHOP THE LOOK
+            MUST HAVES
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Descubre nuestros productos KAHI. Hacé clic en los puntos para ver más detalles.

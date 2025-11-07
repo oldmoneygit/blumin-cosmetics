@@ -3,13 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/Button";
+import { SkincareRoutineSection } from "./SkincareRoutineSection";
 
 const highlights = [
   {
     id: 1,
     title: "MULTI BALM STICK",
-    stat: "Reduces Crow's Feet by 5.32%",
-    description: "*Clinical evaluation conducted by DATC (2022)",
+    stat: "Reduce las Patas de Gallo en un 5.32%",
+    description: "*Evaluación clínica realizada por DATC (2022)",
     image: "/images/highlight-01.png",
     link: "/product/wrinkle-bounce-multi-balm",
     bgColor: "bg-pink-100",
@@ -17,8 +18,8 @@ const highlights = [
   {
     id: 2,
     title: "EYE BALM STICK",
-    stat: "Lifts Eye Corners by 6.27%",
-    description: "*Clinical evaluation conducted by DATC (2021)",
+    stat: "Levanta las Comisuras de los Ojos en un 6.27%",
+    description: "*Evaluación clínica realizada por DATC (2021)",
     image: "/images/highlight-02.png",
     link: "/product/aqua-balm-stick",
     bgColor: "bg-blue-100",
@@ -26,8 +27,8 @@ const highlights = [
   {
     id: 3,
     title: "SKIN FIT BLENDING ESSENCE",
-    stat: "Minimizes the Look of Pores by 13.7%",
-    description: "*Clinical evaluation conducted by P&K Skin Research Center (2020)",
+    stat: "Minimiza la Apariencia de los Poros en un 13.7%",
+    description: "*Evaluación clínica realizada por P&K Skin Research Center (2020)",
     image: "/images/highlight-03.png",
     link: "/product/fine-line-bounce-collagen-serum",
     bgColor: "bg-purple-100",
@@ -41,11 +42,32 @@ export const ProductHighlights = () => {
         {/* Section Title */}
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tight text-gray-900 mb-4">
-            GLOW. HYDRATE. REJUVENATE.
+            BRILLA. HIDRATA. REJUVENECE.
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Resultados clínicamente probados para una piel más radiante y saludable
-          </p>
+          
+          {/* Video Section */}
+          <div className="relative w-full max-w-6xl mx-auto mb-6 sm:mb-8 rounded-2xl overflow-hidden shadow-2xl bg-gray-900">
+            <div className="relative w-full aspect-[16/7] md:aspect-[21/9]">
+              <video
+                src="/videos/videoo.mp4"
+                className="absolute inset-0 w-full h-full object-cover"
+                autoPlay
+                loop
+                muted
+                playsInline
+                controls={false}
+                preload="auto"
+                style={{ width: '100%', height: '100%' }}
+              >
+                Tu navegador no soporta videos.
+              </video>
+            </div>
+          </div>
+
+          {/* Skincare Routine Section */}
+          <div className="mb-6 sm:mb-8">
+            <SkincareRoutineSection />
+          </div>
         </div>
 
         {/* Highlights Grid */}
@@ -80,7 +102,7 @@ export const ProductHighlights = () => {
                       size="medium"
                       className="w-full bg-white text-gray-900 hover:bg-pink-500 hover:text-white"
                     >
-                      SHOP NOW
+                      COMPRAR AHORA
                     </Button>
                   </Link>
                 </div>

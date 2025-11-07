@@ -4,19 +4,19 @@ const ingredients = [
   {
     id: 1,
     title: "SALMON DNA",
-    description: "Sodium DNA (PDRN) supports skin repair, hydration, and elasticity. It helps boost collagen, smooth fine lines, and promote natural skin regeneration.",
+    description: "El ADN de Sodio (PDRN) apoya la reparación, hidratación y elasticidad de la piel. Ayuda a aumentar el colágeno, suavizar líneas finas y promover la regeneración natural de la piel.",
     image: "/images/ingredients/Salmon DNA.webp",
   },
   {
     id: 2,
     title: "144HR JEJU OIL",
-    description: "Jeju Island's pure ingredients undergo 144-hour fermentation, enhancing absorption, deep hydration, and long-lasting moisture retention.",
+    description: "Los ingredientes puros de la Isla de Jeju se someten a una fermentación de 144 horas, mejorando la absorción, hidratación profunda y retención de humedad duradera.",
     image: "/images/ingredients/144HR Jeju Oil.webp",
   },
   {
     id: 3,
     title: "FILMEXEL",
-    description: "Filmexel™ technology creates a natural bio-film with Doty algae and Tara Spinosa, helping smooth fine lines and refine skin texture. Patented in FR & US.",
+    description: "La tecnología Filmexel™ crea una bio-película natural con algas Doty y Tara Spinosa, ayudando a suavizar líneas finas y refinar la textura de la piel. Patentado en FR y EE.UU.",
     image: "/images/ingredients/FILMEXEL.webp",
   },
 ];

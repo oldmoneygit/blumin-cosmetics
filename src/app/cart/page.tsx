@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/Button";
@@ -7,18 +8,115 @@ import { useCart } from "@/hooks/useCart";
 import { formatPrice } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import { Trash2, Plus, Minus, ShoppingBag, ArrowLeft } from "lucide-react";
+import { Trash2, Plus, Minus, ShoppingBag, ArrowLeft, Loader2 } from "lucide-react";
+import { shopifyProductMapping } from "@/data/shopify-mapping";
+import { createStorefrontCheckout } from "@/lib/shopify-storefront";
 
 export default function CartPage() {
   const { cart, removeFromCart, updateQuantity, clearCart, getTotal, getItemCount } = useCart();
   const total = getTotal();
   const itemCount = getItemCount();
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
 
   const handleQuantityChange = (productId: number, newQuantity: number) => {
     if (newQuantity < 1) {
       removeFromCart(productId);
     } else {
       updateQuantity(productId, newQuantity);
+    }
+  };
+
+  const handleCheckout = async () => {
+    if (cart.length === 0) return;
+
+    setIsProcessing(true);
+    setCheckoutError(null);
+
+    try {
+      console.log("🛒 Iniciando checkout...", { cartItems: cart.length });
+      
+      // Get product IDs from cart
+      const productIds = cart.map(item => item.id);
+      
+      console.log("📦 Buscando variant IDs via API...");
+      
+      // Fetch variant IDs from server API
+      const response = await fetch("/api/shopify/get-variant-ids", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ productIds }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Erro ao buscar variant IDs");
+      }
+
+      const { variantIds } = await response.json();
+      console.log("✅ Variant IDs recebidos:", variantIds);
+
+      // Map cart items to Shopify line items
+      const validLineItems = cart
+        .map((item) => {
+          const variantId = variantIds[item.id];
+          
+          if (!variantId) {
+            console.warn(`⚠️ Variant ID não encontrado para produto ${item.name} (ID: ${item.id})`);
+            return null;
+          }
+
+          console.log(`✅ ${item.name}: Variant ID encontrado`);
+
+          return {
+            variantId: variantId,
+            quantity: item.quantity,
+          };
+        })
+        .filter((item): item is { variantId: string; quantity: number } => item !== null);
+
+      console.log("📊 Resultado:", {
+        total: cart.length,
+        valid: validLineItems.length,
+        invalid: cart.length - validLineItems.length,
+      });
+
+      if (validLineItems.length === 0) {
+        const cartDetails = cart.map(item => ({
+          id: item.id,
+          name: item.name,
+          variantId: variantIds[item.id] || 'NÃO ENCONTRADO'
+        }));
+        
+        console.error("❌ Nenhum produto válido encontrado");
+        console.error("📋 Itens do carrinho:", cartDetails);
+        console.error("📦 Mapeamento disponível:", Object.keys(shopifyProductMapping).map(k => Number(k)));
+        
+        setCheckoutError(
+          `Não foi possível processar o checkout. Verifique se os produtos estão disponíveis na Shopify. ` +
+          `Detalhes no console do navegador.`
+        );
+        setIsProcessing(false);
+        return;
+      }
+
+      // Create cart/checkout
+      const checkout = await createStorefrontCheckout(validLineItems);
+
+      if (checkout?.webUrl || checkout?.checkoutUrl) {
+        // Redirect to Shopify checkout
+        const checkoutUrl = checkout.webUrl || checkout.checkoutUrl;
+        console.log("✅ Redirecionando para:", checkoutUrl);
+        window.location.href = checkoutUrl;
+      } else {
+        throw new Error("URL de checkout não retornada");
+      }
+    } catch (error: any) {
+      console.error("Erro ao criar checkout:", error);
+      setCheckoutError(error.message || "Erro ao processar checkout. Tente novamente.");
+      setIsProcessing(false);
     }
   };
 
@@ -199,8 +297,26 @@ export default function CartPage() {
                 </div>
 
                 <div className="space-y-3">
-                  <Button variant="primary" className="w-full" size="large">
-                    Proceder al Checkout
+                  {checkoutError && (
+                    <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-800">
+                      {checkoutError}
+                    </div>
+                  )}
+                  <Button 
+                    variant="primary" 
+                    className="w-full" 
+                    size="large"
+                    onClick={handleCheckout}
+                    disabled={isProcessing || cart.length === 0}
+                  >
+                    {isProcessing ? (
+                      <>
+                        <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                        Procesando...
+                      </>
+                    ) : (
+                      "Proceder al Checkout"
+                    )}
                   </Button>
                   <Link href="/shop">
                     <Button variant="outline" className="w-full" size="medium">

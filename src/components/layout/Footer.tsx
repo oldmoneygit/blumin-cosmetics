@@ -2,42 +2,36 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { Mail, Phone, MapPin, Instagram, Facebook, Youtube } from "lucide-react";
+import { ArrowRight, ShoppingBag, Instagram } from "lucide-react";
 import { Button } from "../ui/Button";
 import { Input } from "../ui/Input";
 import { isValidEmail } from "@/lib/utils";
 
 const footerNavigation = {
-  shop: [
-    { name: "Todos los Productos", href: "/shop" },
-    { name: "Más Vendidos", href: "/shop?filter=best-sellers" },
-    { name: "Novedades", href: "/shop?filter=new" },
-    { name: "Multi Balm Sticks", href: "/shop?category=multi-balm" },
-    { name: "Cuidado de la Piel", href: "/shop?category=skincare" },
+  official: [
+    { name: "Acerca de", href: "/about" },
+    { name: "Términos de Servicio", href: "/terms" },
+    { name: "Política de Privacidad", href: "/privacy" },
   ],
-  about: [
-    { name: "Nuestra Historia", href: "/about" },
-    { name: "Ingredientes", href: "/ingredients" },
-    { name: "Sustentabilidad", href: "/sustainability" },
-    { name: "Preguntas Frecuentes", href: "/faq" },
-    { name: "Contactanos", href: "/contact" },
+  social: [
+    { name: "Instagram", href: "https://instagram.com" },
+    { name: "TikTok Shop", href: "https://tiktok.com" },
   ],
-  support: [
-    { name: "Envíos y Devoluciones", href: "/shipping" },
-    { name: "Rastrear Pedido", href: "/track-order" },
-    { name: "Guía de Tamaños", href: "/size-guide" },
-    { name: "Atención al Cliente", href: "/support" },
-    { name: "Términos y Condiciones", href: "/terms" },
+  help: [
+    { name: "FAQ", href: "/faq" },
+    { name: "Contacto", href: "/contact" },
   ],
 };
 
 const paymentMethods = [
-  { name: "Visa", icon: "💳" },
-  { name: "Mastercard", icon: "💳" },
-  { name: "American Express", icon: "💳" },
-  { name: "PayPal", icon: "💰" },
-  { name: "PIX", icon: "📱" },
+  { name: "American Express", short: "AM EX", color: "bg-blue-600" },
+  { name: "Apple Pay", short: "Pay", color: "bg-black" },
+  { name: "Diners Club", short: "DC", color: "bg-blue-500" },
+  { name: "Discover", short: "DC", color: "bg-orange-600" },
+  { name: "Google Pay", short: "G Pay", color: "bg-gray-800" },
+  { name: "Mastercard", short: "MC", color: "bg-red-500" },
+  { name: "Shop Pay", short: "shop", color: "bg-purple-600" },
+  { name: "Visa", short: "VISA", color: "bg-blue-700" },
 ];
 
 export const Footer = () => {
@@ -74,137 +68,63 @@ export const Footer = () => {
   };
 
   return (
-    <footer className="bg-pink-100 text-gray-900">
+    <footer className="text-gray-900" style={{ backgroundColor: '#ffb8d1' }}>
       {/* Newsletter Section */}
-      <div className="border-b border-pink-200">
+      <div className="border-b" style={{ borderColor: 'rgba(0, 0, 0, 0.1)' }}>
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-12">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <h3 className="text-2xl lg:text-3xl font-bold mb-2 text-gray-900">
-                Unite a Nuestro Newsletter
-              </h3>
-              <p className="text-gray-700">
-                Suscribite para ofertas exclusivas, consejos de cuidado de la piel y acceso anticipado a nuevos productos
-              </p>
-            </div>
+          <div className="max-w-4xl">
+            <h3 className="text-4xl md:text-5xl font-black uppercase tracking-tight text-gray-900 mb-4 text-left">
+              ¡MANTENTE AL DÍA!
+            </h3>
+            <p className="text-lg text-gray-700 mb-8 text-left">
+              Suscribite y sé el primero en conocer nuestros nuevos lanzamientos y ofertas exclusivas.
+            </p>
 
-            <div>
-              {isSubscribed ? (
-                <div className="bg-green-100 border border-green-500 rounded-lg p-4 text-center">
-                  <p className="text-green-700 font-semibold">
-                    ✓ ¡Gracias por suscribirte! Revisá tu correo para recibir un regalo de bienvenida.
-                  </p>
-                </div>
-              ) : (
-                <form onSubmit={handleNewsletterSubmit} className="flex gap-3">
-                  <div className="flex-1">
-                    <Input
-                      type="email"
-                      placeholder="Ingresá tu correo"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      error={emailError}
-                      className="bg-white border-pink-300 text-gray-900 placeholder:text-gray-500"
-                    />
-                  </div>
-                  <Button
-                    type="submit"
-                    variant="primary"
-                    size="medium"
-                    isLoading={isSubmitting}
-                    className="whitespace-nowrap"
-                  >
-                    Suscribirme
-                  </Button>
-                </form>
-              )}
-            </div>
+            <form onSubmit={handleNewsletterSubmit} className="flex gap-2 mb-6 max-w-md">
+              <Input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                error={emailError}
+                className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-400 rounded-lg flex-1"
+              />
+              <Button
+                type="submit"
+                variant="primary"
+                size="medium"
+                isLoading={isSubmitting}
+                className="rounded-lg px-4 bg-gray-900 hover:bg-gray-800 text-white"
+              >
+                <ArrowRight className="w-5 h-5" />
+              </Button>
+            </form>
+
+            <p className="text-xs text-gray-700 max-w-2xl leading-relaxed text-left">
+              Al enviar tu correo electrónico, aceptás que KAHI pueda enviarte mensajes promocionales por correo electrónico con ofertas, actualizaciones y otros mensajes de marketing. Entendés que KAHI puede usar tu información de acuerdo con su{" "}
+              <Link href="/terms" className="underline hover:text-pink-600">
+                Términos de Uso
+              </Link>{" "}
+              y{" "}
+              <Link href="/privacy" className="underline hover:text-pink-600">
+                Política de Privacidad
+              </Link>
+              .
+            </p>
           </div>
         </div>
       </div>
 
       {/* Main Footer Content */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
-          {/* Brand Column */}
-          <div className="lg:col-span-2">
-            <Link href="/" className="inline-block mb-4">
-              <Image
-                src="/images/logo.png"
-                alt="BLUMIN Logo"
-                width={480}
-                height={160}
-                className="h-48 lg:h-56 w-auto"
-                priority
-              />
-            </Link>
-
-            <p className="text-gray-700 mb-6 leading-relaxed">
-              Descubrí tu hermoso cambio con el cuidado de piel coreano premium.
-              Productos KAHI con ADN de Salmón, Aceite de Jeju y tecnología FILMEXEL™.
-            </p>
-
-            {/* Contact Info */}
-            <div className="space-y-3 mb-6">
-              <a
-                href="mailto:hello@blumin.com"
-                className="flex items-center gap-3 text-gray-700 hover:text-pink-600 transition-colors"
-              >
-                <Mail className="h-5 w-5" />
-                <span>hello@blumin.com</span>
-              </a>
-              <a
-                href="tel:+5511999999999"
-                className="flex items-center gap-3 text-gray-700 hover:text-pink-600 transition-colors"
-              >
-                <Phone className="h-5 w-5" />
-                <span>+55 11 99999-9999</span>
-              </a>
-              <div className="flex items-center gap-3 text-gray-700">
-                <MapPin className="h-5 w-5" />
-                <span>Buenos Aires, Argentina</span>
-              </div>
-            </div>
-
-            {/* Social Links */}
-            <div className="flex gap-4">
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-pink-200 text-gray-900 flex items-center justify-center hover:bg-pink-500 hover:text-white transition-all duration-300 hover:scale-110"
-                aria-label="Instagram"
-              >
-                <Instagram className="h-5 w-5" />
-              </a>
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-pink-200 text-gray-900 flex items-center justify-center hover:bg-pink-500 hover:text-white transition-all duration-300 hover:scale-110"
-                aria-label="Facebook"
-              >
-                <Facebook className="h-5 w-5" />
-              </a>
-              <a
-                href="https://youtube.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-pink-200 text-gray-900 flex items-center justify-center hover:bg-pink-500 hover:text-white transition-all duration-300 hover:scale-110"
-                aria-label="YouTube"
-              >
-                <Youtube className="h-5 w-5" />
-              </a>
-            </div>
-          </div>
-
-          {/* Shop Links */}
-          <div>
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-8">
+          {/* Official Column */}
+          <div className="text-left">
             <h3 className="text-lg font-bold mb-6 uppercase tracking-wide text-gray-900">
-              Tienda
+              OFICIAL
             </h3>
             <ul className="space-y-3">
-              {footerNavigation.shop.map((item) => (
+              {footerNavigation.official.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
@@ -217,32 +137,34 @@ export const Footer = () => {
             </ul>
           </div>
 
-          {/* About Links */}
-          <div>
+          {/* Social Column */}
+          <div className="text-left">
             <h3 className="text-lg font-bold mb-6 uppercase tracking-wide text-gray-900">
-              Nosotros
+              SOCIAL
             </h3>
             <ul className="space-y-3">
-              {footerNavigation.about.map((item) => (
+              {footerNavigation.social.map((item) => (
                 <li key={item.name}>
-                  <Link
+                  <a
                     href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-gray-700 hover:text-pink-600 transition-colors"
                   >
                     {item.name}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Support Links */}
-          <div>
+          {/* Help Column */}
+          <div className="text-left">
             <h3 className="text-lg font-bold mb-6 uppercase tracking-wide text-gray-900">
-              Soporte
+              AYUDA
             </h3>
             <ul className="space-y-3">
-              {footerNavigation.support.map((item) => (
+              {footerNavigation.help.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
@@ -258,39 +180,39 @@ export const Footer = () => {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-pink-200">
+      <div className="border-t" style={{ borderColor: 'rgba(0, 0, 0, 0.1)' }}>
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-6 flex-wrap">
+            {/* Rewards Button */}
+            <Link
+              href="/rewards"
+              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg text-white font-semibold hover:from-purple-600 hover:to-blue-600 transition-all duration-300 shadow-lg hover:shadow-xl"
+            >
+              <ShoppingBag className="w-5 h-5" />
+              <span>Recompensas</span>
+            </Link>
+
             {/* Copyright */}
-            <div className="text-gray-700 text-sm text-center md:text-left">
+            <div className="text-gray-700 text-sm text-left">
               <p>
-                © {new Date().getFullYear()} BLUMIN. Todos los derechos reservados. | Powered by KAHI Cosmetics
+                © {new Date().getFullYear()} Korea Tech Co. Ltd. Todos los derechos reservados.
               </p>
             </div>
 
             {/* Payment Methods */}
-            <div className="flex items-center gap-4">
-              <span className="text-gray-700 text-sm">Aceptamos:</span>
-              <div className="flex gap-2">
-                {paymentMethods.map((method) => (
-                  <div
-                    key={method.name}
-                    className="w-12 h-8 bg-pink-200 rounded flex items-center justify-center text-xl hover:bg-pink-300 transition-colors"
-                    title={method.name}
-                  >
-                    {method.icon}
-                  </div>
-                ))}
-              </div>
+            <div className="flex items-center gap-2 flex-wrap md:ml-auto">
+              {paymentMethods.map((method) => (
+                <div
+                  key={method.name}
+                  className={`w-14 h-10 ${method.color} rounded flex items-center justify-center hover:opacity-80 transition-opacity shadow-sm`}
+                  title={method.name}
+                >
+                  <span className="text-xs font-bold text-white">
+                    {method.short}
+                  </span>
+                </div>
+              ))}
             </div>
-          </div>
-
-          {/* Certifications */}
-          <div className="mt-6 flex flex-wrap justify-center gap-4 text-xs text-gray-700">
-            <span className="px-3 py-1 bg-pink-200 rounded-full">✓ 100% Vegano</span>
-            <span className="px-3 py-1 bg-pink-200 rounded-full">✓ Libre de Crueldad</span>
-            <span className="px-3 py-1 bg-pink-200 rounded-full">✓ Dermatológicamente Testado</span>
-            <span className="px-3 py-1 bg-pink-200 rounded-full">✓ Eco-Consciente</span>
           </div>
         </div>
       </div>

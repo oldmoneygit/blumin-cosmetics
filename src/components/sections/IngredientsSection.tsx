@@ -4,6 +4,7 @@ import { Ingredient } from "@/types";
 import { Badge } from "../ui/Badge";
 import { Sparkles } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 interface IngredientsSectionProps {
@@ -155,12 +156,12 @@ export const IngredientsSection = ({ ingredients }: IngredientsSectionProps) => 
               para máxima eficacia y resultados visibles
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="px-8 py-4 bg-white text-pink-500 rounded-full font-bold uppercase tracking-wide hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <Link href="/shop" className="px-8 py-4 bg-white text-pink-500 rounded-full font-bold uppercase tracking-wide hover:shadow-xl transition-all duration-300 hover:scale-105 inline-block text-center">
                 Comprar Ingredientes
-              </button>
-              <button className="px-8 py-4 bg-transparent border-2 border-white text-white rounded-full font-bold uppercase tracking-wide hover:bg-white hover:text-pink-500 transition-all duration-300">
+              </Link>
+              <Link href="/reviews" className="px-8 py-4 bg-transparent border-2 border-white text-white rounded-full font-bold uppercase tracking-wide hover:bg-white hover:text-pink-500 transition-all duration-300 inline-block text-center">
                 Saber Más
-              </button>
+              </Link>
             </div>
           </div>
         </div>

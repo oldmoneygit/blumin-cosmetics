@@ -12,6 +12,7 @@ import { ProductCard } from "@/components/ui/ProductCard";
 import { products } from "@/data/products";
 import { Product } from "@/types";
 import { formatPrice, calculateDiscount } from "@/lib/utils";
+import { useCart } from "@/hooks/useCart";
 import {
   Star,
   ShoppingCart,
@@ -52,6 +53,7 @@ export default function ProductPage() {
   const params = useParams();
   const slug = params.slug as string;
 
+  const { addToCart } = useCart();
   const [product, setProduct] = useState<Product | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [isFavorite, setIsFavorite] = useState(false);
@@ -59,6 +61,7 @@ export default function ProductPage() {
   const [selectedImage, setSelectedImage] = useState(0);
   const [showShareMenu, setShowShareMenu] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
+  const [addedToCart, setAddedToCart] = useState(false);
 
   useEffect(() => {
     const foundProduct = products.find((p) => p.slug === slug);
@@ -101,7 +104,15 @@ export default function ProductPage() {
   };
 
   const handleAddToCart = () => {
-    console.log(`Added ${quantity} ${product.name} to cart`);
+    if (!product || !product.inStock) return;
+    
+    addToCart(product, quantity);
+    setAddedToCart(true);
+    
+    // Reset feedback after 2 seconds
+    setTimeout(() => {
+      setAddedToCart(false);
+    }, 2000);
   };
 
   const toggleSection = (section: string) => {
@@ -171,14 +182,21 @@ export default function ProductPage() {
           {/* Image Gallery */}
           <div className="space-y-3 lg:sticky lg:top-24 self-start">
             {/* Main Image */}
-            <div className="relative aspect-square bg-gradient-to-br from-pink-50 to-gray-50 rounded-2xl lg:rounded-3xl overflow-hidden group">
-              <Image
-                src={product.images[selectedImage] || "/images/placeholder.jpg"}
-                alt={product.name}
-                fill
-                className="object-contain p-8 sm:p-10 lg:p-12"
-                priority
-              />
+            <div className="relative w-full aspect-square min-h-[300px] sm:min-h-[400px] bg-white rounded-2xl lg:rounded-3xl overflow-hidden group">
+              {product.images[selectedImage] ? (
+                <Image
+                  src={product.images[selectedImage]}
+                  alt={product.name}
+                  fill
+                  className="object-contain"
+                  priority
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <Package className="h-16 w-16 text-gray-300" />
+                </div>
+              )}
 
               {/* Navigation Arrows */}
               {product.images.length > 1 && (
@@ -243,7 +261,8 @@ export default function ProductPage() {
                       src={image}
                       alt={`${product.name} ${index + 1}`}
                       fill
-                      className="object-contain p-2 sm:p-3"
+                      className="object-contain p-1.5 sm:p-2 md:p-3"
+                      sizes="(max-width: 768px) 25vw, 12.5vw"
                     />
                   </button>
                 ))}
@@ -469,11 +488,20 @@ export default function ProductPage() {
                 size="large"
                 className="flex-1 text-sm sm:text-base font-bold py-3 sm:py-4 shadow-lg shadow-pink-500/20 hover:shadow-xl hover:shadow-pink-500/30 transition-all"
                 onClick={handleAddToCart}
-                disabled={!product.inStock}
+                disabled={!product.inStock || addedToCart}
               >
                 <ShoppingCart className="h-4 w-4 sm:h-5 sm:w-5" />
-                <span className="hidden sm:inline">{product.inStock ? "Agregar al Carrito" : "Agotado"}</span>
-                <span className="sm:hidden">{product.inStock ? "Agregar" : "Agotado"}</span>
+                {addedToCart ? (
+                  <>
+                    <Check className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
+                    <span>¡Agregado!</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="hidden sm:inline">{product.inStock ? "Agregar al Carrito" : "Agotado"}</span>
+                    <span className="sm:hidden">{product.inStock ? "Agregar" : "Agotado"}</span>
+                  </>
+                )}
               </Button>
               <button
                 onClick={() => setIsFavorite(!isFavorite)}
@@ -550,6 +578,81 @@ export default function ProductPage() {
             </div>
           </div>
         </div>
+
+        {/* Video Testimonials Section - Only for Wrinkle Bounce Multi Balm */}
+        {product.slug === "wrinkle-bounce-multi-balm" && (
+          <div className="mt-12 sm:mt-16">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+              {/* Video 1 - Before */}
+              <div className="relative aspect-[9/16] rounded-2xl overflow-hidden bg-gray-900 group">
+                <video
+                  src="/videos/wrinkle-bounce-video-1.mp4"
+                  className="w-full h-full object-cover"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  controls={false}
+                >
+                  Seu navegador não suporta vídeos.
+                </video>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4">
+                  <p className="text-white text-lg sm:text-xl font-bold">
+                    just 7 days?
+                  </p>
+                </div>
+              </div>
+
+              {/* Video 2 - After */}
+              <div className="relative aspect-[9/16] rounded-2xl overflow-hidden bg-gray-900 group">
+                <video
+                  src="/videos/wrinkle-bounce-video-2.mp4"
+                  className="w-full h-full object-cover"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  controls={false}
+                >
+                  Seu navegador não suporta vídeos.
+                </video>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                <div className="absolute top-8 left-4 right-4 text-center">
+                  <p className="text-white text-base sm:text-lg font-semibold mb-2">
+                    Turns out, all I needed was the right balm 💕
+                  </p>
+                </div>
+                <div className="absolute bottom-4 left-4 right-4 text-center">
+                  <p className="text-white text-2xl sm:text-3xl font-bold">
+                    After
+                  </p>
+                </div>
+              </div>
+
+              {/* Video 3 - Application */}
+              <div className="relative aspect-[9/16] rounded-2xl overflow-hidden bg-gray-900 group">
+                <video
+                  src="/videos/wrinkle-bounce-video-3.mp4"
+                  className="w-full h-full object-cover"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  controls={false}
+                >
+                  Seu navegador não suporta vídeos.
+                </video>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4">
+                  <p className="text-white text-base sm:text-lg font-semibold">
+                    It's just another pro that doesn't work
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Product Details Accordion */}
         <div className="mt-8 sm:mt-12 space-y-3">

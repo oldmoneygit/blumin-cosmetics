@@ -5,10 +5,10 @@ import Link from "next/link";
 const categories = [
   {
     id: 1,
-    name: "Shop All",
+    name: "Ver Todo",
     count: 36,
     image: "/images/categories/01.webp",
-    link: "/shop/all",
+    link: "/shop",
   },
   {
     id: 2,
@@ -19,14 +19,14 @@ const categories = [
   },
   {
     id: 3,
-    name: "Skincare",
+    name: "Cuidado de la Piel",
     count: 18,
     image: "/images/categories/03.webp",
     link: "/shop/skincare",
   },
   {
     id: 4,
-    name: "Makeup",
+    name: "Maquillaje",
     count: 3,
     image: "/images/categories/04.webp",
     link: "/shop/makeup",
@@ -72,7 +72,7 @@ export const CategoriesSection = () => {
                         {category.name}
                       </h3>
                       <div className="text-sm text-gray-600">
-                        {category.count} items
+                        {category.count} artículos
                       </div>
                     </div>
 
@@ -112,7 +112,7 @@ export const CategoriesSection = () => {
         {/* Section Title */}
         <div className="text-center">
           <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tight text-gray-900">
-            ALL ABOUT: KAHI
+            TODO SOBRE: KAHI
           </h2>
         </div>
       </div>
