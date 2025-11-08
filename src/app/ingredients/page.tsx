@@ -43,10 +43,17 @@ export default function IngredientsPage() {
 
                 {/* Content */}
                 <div className="px-0 pb-6">
-                  {ingredient.tag && (
-                    <span className="inline-block text-xs uppercase tracking-widest text-pink-600 font-semibold mb-3">
-                      {ingredient.tag}
-                    </span>
+                  {ingredient.tags && ingredient.tags.length > 0 && (
+                    <div className="mb-3 flex flex-wrap items-center gap-2">
+                      {ingredient.tags.map((tag) => (
+                        <span
+                          key={`${ingredient.id}-${tag}`}
+                          className="inline-block rounded-full bg-pink-100 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-pink-600"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   )}
                   <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">
                     {ingredient.name}

@@ -118,6 +118,39 @@ Tutorial passo a passo desde o zero até o deploy:
 - Configurar domínio
 - Variáveis de ambiente
 
+---
+
+## 🚀 Deploy no Vercel
+
+1. **Criar o projeto na Vercel**
+   - Faça login em [vercel.com](https://vercel.com) e clique em *New Project*.
+   - Selecione o repositório `blumin` no GitHub.
+
+2. **Definir as variáveis de ambiente**
+   - No menu *Environment Variables* adicione as chaves abaixo para os ambientes `Preview` e `Production`:
+     ```
+     SHOPIFY_STORE_DOMAIN=your-shopify-store.myshopify.com
+     SHOPIFY_ACCESS_TOKEN=your-shopify-admin-access-token
+     SHOPIFY_API_VERSION=2024-01
+     SHOPIFY_STOREFRONT_ACCESS_TOKEN=your-shopify-storefront-access-token
+     NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN=your-shopify-store.myshopify.com
+     NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN=your-shopify-storefront-access-token
+     ```
+   - Substitua os valores pelos tokens reais configurados em sua loja Shopify.
+
+3. **Configurar os comandos**
+   - *Build Command*: `npm run build`
+   - *Install Command*: `npm install`
+   - *Output Directory*: `.vercel/output` (padrão para Next.js 16 com Vercel).
+
+4. **Efetuar o primeiro deploy**
+   - Clique em *Deploy*. A Vercel executará `npm install` e `npm run build`.
+   - Após a conclusão, acesse a URL gerada (por ex.: `https://blumin.vercel.app`).
+
+5. **Pós-deploy**
+   - Configure o domínio customizado em *Domains* se necessário.
+   - Ative *Automatic Static Optimization* e monitore logs em *Deployments*.
+
 **📊 Timeline:** 26 dias
 **🎨 Dificuldade:** Intermediário
 **👨‍💻 Ideal para:** Seguir passo a passo desde o início

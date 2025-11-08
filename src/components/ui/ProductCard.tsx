@@ -91,7 +91,7 @@ export const ProductCard = memo(({ product, onAddToCart }: ProductCardProps) => 
               src={product.images[0] || "/images/placeholder-product.jpg"}
               alt={product.name}
               fill
-              quality={100}
+              quality={80}
               priority={product.isBestSeller}
               className={`object-contain p-2 sm:p-4 transition-all duration-700 mix-blend-multiply ${
                 isHovered ? "scale-105" : "scale-100"

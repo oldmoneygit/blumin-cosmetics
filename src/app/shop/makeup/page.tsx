@@ -8,11 +8,13 @@ import { Button } from "@/components/ui/Button";
 import { products } from "@/data/products";
 import { Product } from "@/types";
 import { useCart } from "@/hooks/useCart";
+import { useToast } from "@/hooks/useToast";
 import { Grid, List } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function MakeupPage() {
   const { addToCart, getItemCount } = useCart();
+  const { showToast } = useToast();
   const [sortBy, setSortBy] = useState<string>("featured");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
@@ -31,6 +33,17 @@ export default function MakeupPage() {
 
   const handleAddToCart = (product: Product) => {
     addToCart(product, 1);
+    showToast({
+      title: product.name,
+      description: "Agregado al carrito",
+      type: "success",
+      image: product.images?.[0],
+      price: product.price,
+      quantity: 1,
+      ctaLabel: "Ver carrito",
+      ctaHref: "/cart",
+      duration: 6000,
+    });
   };
 
   return (

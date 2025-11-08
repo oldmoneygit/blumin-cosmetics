@@ -13,6 +13,7 @@ import { products } from "@/data/products";
 import { Product } from "@/types";
 import { formatPrice, calculateDiscount } from "@/lib/utils";
 import { useCart } from "@/hooks/useCart";
+import { useToast } from "@/hooks/useToast";
 import {
   Star,
   ShoppingCart,
@@ -53,7 +54,8 @@ export default function ProductPage() {
   const params = useParams();
   const slug = params.slug as string;
 
-  const { addToCart } = useCart();
+  const { addToCart, getItemCount } = useCart();
+  const { showToast } = useToast();
   const [product, setProduct] = useState<Product | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [isFavorite, setIsFavorite] = useState(false);
@@ -108,6 +110,17 @@ export default function ProductPage() {
     
     addToCart(product, quantity);
     setAddedToCart(true);
+    showToast({
+      title: product.name,
+      description: "Agregado al carrito",
+      type: "success",
+      image: product.images?.[0],
+      price: product.price,
+      quantity,
+      ctaLabel: "Ver carrito",
+      ctaHref: "/cart",
+      duration: 6500,
+    });
     
     // Reset feedback after 2 seconds
     setTimeout(() => {
@@ -159,7 +172,7 @@ export default function ProductPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Header cartItemCount={0} />
+      <Header cartItemCount={getItemCount()} />
 
       {/* Breadcrumb */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-2 sm:pb-4">
@@ -189,8 +202,9 @@ export default function ProductPage() {
                   alt={product.name}
                   fill
                   className="object-contain"
-                  priority
-                  sizes="(max-width: 768px) 100vw, 50vw"
+                  priority={selectedImage === 0}
+                  quality={80}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 60vw, 50vw"
                 />
               ) : (
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -262,7 +276,8 @@ export default function ProductPage() {
                       alt={`${product.name} ${index + 1}`}
                       fill
                       className="object-contain p-1.5 sm:p-2 md:p-3"
-                      sizes="(max-width: 768px) 25vw, 12.5vw"
+                      quality={70}
+                      sizes="(max-width: 640px) 20vw, (max-width: 1024px) 12vw, 8vw"
                     />
                   </button>
                 ))}

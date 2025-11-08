@@ -43,17 +43,17 @@ export const Button = memo(({
   ...props
 }: ButtonProps) => {
   const baseStyles =
-    "rounded-full font-bold tracking-widest uppercase transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center justify-center gap-2";
+    "rounded-full font-semibold tracking-widest uppercase transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center justify-center gap-2";
 
   const variants = {
     primary:
-      "bg-pink-400 text-white hover:bg-pink-500 hover:shadow-lg active:scale-95",
+      "bg-pink-400 text-white hover:bg-pink-500 hover:shadow-lg active:scale-[0.98]",
     secondary:
-      "bg-gray-900 text-white hover:bg-gray-800 hover:shadow-lg active:scale-95",
+      "bg-gray-900 text-white hover:bg-gray-800 hover:shadow-lg active:scale-[0.98]",
     outline:
-      "bg-transparent text-gray-900 border-2 border-gray-900 hover:bg-gray-900 hover:text-white active:scale-95",
+      "bg-transparent text-gray-900 border-2 border-gray-900 hover:bg-gray-900 hover:text-white active:scale-[0.98]",
     ghost:
-      "bg-transparent text-gray-900 hover:bg-pink-50 active:scale-95",
+      "bg-transparent text-gray-900 hover:bg-pink-50 active:scale-[0.98]",
   };
 
   const sizes = {

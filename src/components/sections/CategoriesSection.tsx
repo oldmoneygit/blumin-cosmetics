@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 
 const categories = [
   {
@@ -53,11 +54,14 @@ export const CategoriesSection = () => {
                 <div className="relative w-full aspect-square overflow-hidden bg-gray-50 rounded-2xl">
                   <div className="hover-wrapper block w-full h-full overflow-hidden">
                     <div className="block w-full h-full motion-reduce group-hover:scale-110 transition-transform duration-700 ease-out">
-                      <img
+                      <Image
                         src={category.image}
                         alt={category.name}
-                        className="w-full h-full object-cover"
-                        loading="lazy"
+                        fill
+                        quality={80}
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 45vw, 25vw"
+                        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 motion-reduce:transform-none"
+                        priority={category.id === 1}
                       />
                     </div>
                   </div>

@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 const ingredients = [
   {
     id: 1,
@@ -33,12 +35,14 @@ export const AboutKahiSection = () => {
               className="bg-white rounded-2xl overflow-hidden group"
             >
               {/* Image Container */}
-              <div className="relative w-full aspect-[3/4] overflow-hidden bg-gray-50 rounded-2xl mb-6">
-                <img
+              <div className="relative mb-6 w-full overflow-hidden rounded-2xl bg-gray-50 aspect-[3/4]">
+                <Image
                   src={ingredient.image}
                   alt={ingredient.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
-                  loading="lazy"
+                  fill
+                  quality={80}
+                  sizes="(max-width: 768px) 100vw, 30vw"
+                  className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                 />
               </div>
 

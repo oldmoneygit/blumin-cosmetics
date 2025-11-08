@@ -15,6 +15,7 @@ const nextConfig: NextConfig = {
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    qualities: [60, 75, 85],
   },
   experimental: {
     optimizePackageImports: ['lucide-react'],

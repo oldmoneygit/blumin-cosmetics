@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/Button";
 import { products } from "@/data/products";
 import { Product } from "@/types";
 import { useCart } from "@/hooks/useCart";
+import { useToast } from "@/hooks/useToast";
 import { Filter, X, Grid, List, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
@@ -16,6 +17,7 @@ import Link from "next/link";
 function ShopContent() {
   const searchParams = useSearchParams();
   const { addToCart, getItemCount } = useCart();
+  const { showToast } = useToast();
   
   const filter = searchParams.get("filter") || "";
   const category = searchParams.get("category") || "";
@@ -56,6 +58,17 @@ function ShopContent() {
 
   const handleAddToCart = (product: Product) => {
     addToCart(product, 1);
+    showToast({
+      title: product.name,
+      description: "Agregado al carrito",
+      type: "success",
+      image: product.images?.[0],
+      price: product.price,
+      quantity: 1,
+      ctaLabel: "Ver carrito",
+      ctaHref: "/cart",
+      duration: 6000,
+    });
   };
 
   return (
@@ -63,11 +76,11 @@ function ShopContent() {
       <Header cartItemCount={getItemCount()} />
 
       {/* Page Header */}
-      <section className="pt-28 pb-12 bg-gradient-to-b from-pink-50 to-white">
+      <section className="pt-24 pb-10 bg-gradient-to-b from-pink-50 to-white sm:pt-28 sm:pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
             <div>
-              <h1 className="text-4xl md:text-5xl font-black uppercase tracking-tight text-gray-900 mb-2">
+              <h1 className="text-3xl font-black uppercase tracking-tight text-gray-900 mb-2 sm:text-4xl md:text-5xl">
                 {filter === "best-sellers"
                   ? "Más Vendidos"
                   : filter === "new"
@@ -78,17 +91,17 @@ function ShopContent() {
                   ? "Skincare"
                   : "Tienda"}
               </h1>
-              <p className="text-lg text-gray-600">
+              <p className="text-base text-gray-600 sm:text-lg">
                 {filteredProducts.length} {filteredProducts.length === 1 ? "producto" : "productos"}
               </p>
             </div>
 
             {/* Sort and View Controls */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3 sm:gap-4">
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-pink-500"
+                className="px-3 py-2 text-sm border border-gray-300 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-pink-500 sm:px-4 sm:text-base"
               >
                 <option value="featured">Destacados</option>
                 <option value="name">Nombre A-Z</option>

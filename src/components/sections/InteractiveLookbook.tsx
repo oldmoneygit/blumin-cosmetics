@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ShoppingCart, X } from "lucide-react";
 import { Button } from "../ui/Button";
 
@@ -118,12 +119,19 @@ export const InteractiveLookbook = () => {
         {/* Lookbook Container */}
         <div className="relative w-full max-w-6xl mx-auto">
           {/* Main Image */}
-          <div className="relative w-full rounded-3xl overflow-hidden shadow-2xl">
-            <img
-              src="/images/lookbook-main.webp"
-              alt="KAHI Lookbook"
-              className="w-full h-auto"
-            />
+          <div className="relative w-full overflow-hidden rounded-3xl shadow-2xl">
+            <div className="relative h-full w-full">
+              <Image
+                src="/images/lookbook-main.webp"
+                alt="KAHI Lookbook"
+                width={1920}
+                height={1080}
+                quality={80}
+                priority
+                className="h-full w-full object-cover"
+                sizes="(max-width: 768px) 100vw, 80vw"
+              />
+            </div>
 
             {/* Hotspots */}
             {hotspots.map((hotspot) => (
@@ -167,11 +175,14 @@ export const InteractiveLookbook = () => {
                       transform: "translateY(-50%)",
                     }}
                   >
-                    <div className="relative w-full h-40 mb-3 rounded-xl overflow-hidden bg-gray-50 flex items-center justify-center">
-                      <img
+                    <div className="relative mb-3 flex h-40 w-full items-center justify-center overflow-hidden rounded-xl bg-gray-50">
+                      <Image
                         src={hotspot.product.image}
                         alt={hotspot.product.name}
-                        className="max-w-full max-h-full object-contain p-4"
+                        fill
+                        quality={75}
+                        sizes="256px"
+                        className="object-contain p-4"
                       />
                     </div>
                     <h4 className="font-bold text-gray-900 text-sm mb-1 line-clamp-2">
@@ -208,11 +219,14 @@ export const InteractiveLookbook = () => {
                 </button>
 
                 {/* Product Image */}
-                <div className="relative w-full h-64 mb-4 rounded-2xl overflow-hidden bg-gray-50 flex items-center justify-center">
-                  <img
+                <div className="relative mb-4 flex h-64 w-full items-center justify-center overflow-hidden rounded-2xl bg-gray-50">
+                  <Image
                     src={activeProduct.image}
                     alt={activeProduct.name}
-                    className="max-w-full max-h-full object-contain p-6"
+                    fill
+                    quality={75}
+                    sizes="(max-width: 640px) 80vw, 360px"
+                    className="object-contain p-6"
                   />
                 </div>
 

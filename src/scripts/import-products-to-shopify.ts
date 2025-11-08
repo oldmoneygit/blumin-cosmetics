@@ -25,7 +25,7 @@ interface ShopifyProduct {
     inventory_management?: string;
     inventory_policy?: string;
   }>;
-  images: Array<{
+  images?: Array<{
     src: string;
     alt?: string;
   }>;
@@ -91,7 +91,7 @@ function convertToShopifyProduct(localProduct: any): ShopifyProduct {
         inventory_policy: "deny",
       },
     ],
-    images: images.length > 0 ? images : undefined,
+    ...(images.length > 0 ? { images } : {}),
   };
 }
 

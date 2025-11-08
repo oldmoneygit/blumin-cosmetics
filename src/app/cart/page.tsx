@@ -34,12 +34,16 @@ export default function CartPage() {
     setCheckoutError(null);
 
     try {
-      console.log("🛒 Iniciando checkout...", { cartItems: cart.length });
+      if (process.env.NODE_ENV !== "production") {
+        console.log("🛒 Iniciando checkout...", { cartItems: cart.length });
+      }
       
       // Get product IDs from cart
       const productIds = cart.map(item => item.id);
       
-      console.log("📦 Buscando variant IDs via API...");
+      if (process.env.NODE_ENV !== "production") {
+        console.log("📦 Buscando variant IDs via API...");
+      }
       
       // Fetch variant IDs from server API
       const response = await fetch("/api/shopify/get-variant-ids", {
@@ -56,7 +60,9 @@ export default function CartPage() {
       }
 
       const { variantIds } = await response.json();
-      console.log("✅ Variant IDs recebidos:", variantIds);
+      if (process.env.NODE_ENV !== "production") {
+        console.log("✅ Variant IDs recebidos:", variantIds);
+      }
 
       // Map cart items to Shopify line items
       const validLineItems = cart
@@ -64,11 +70,15 @@ export default function CartPage() {
           const variantId = variantIds[item.id];
           
           if (!variantId) {
-            console.warn(`⚠️ Variant ID não encontrado para produto ${item.name} (ID: ${item.id})`);
+            if (process.env.NODE_ENV !== "production") {
+              console.warn(`⚠️ Variant ID não encontrado para produto ${item.name} (ID: ${item.id})`);
+            }
             return null;
           }
 
-          console.log(`✅ ${item.name}: Variant ID encontrado`);
+          if (process.env.NODE_ENV !== "production") {
+            console.log(`✅ ${item.name}: Variant ID encontrado`);
+          }
 
           return {
             variantId: variantId,
@@ -77,11 +87,13 @@ export default function CartPage() {
         })
         .filter((item): item is { variantId: string; quantity: number } => item !== null);
 
-      console.log("📊 Resultado:", {
-        total: cart.length,
-        valid: validLineItems.length,
-        invalid: cart.length - validLineItems.length,
-      });
+      if (process.env.NODE_ENV !== "production") {
+        console.log("📊 Resultado:", {
+          total: cart.length,
+          valid: validLineItems.length,
+          invalid: cart.length - validLineItems.length,
+        });
+      }
 
       if (validLineItems.length === 0) {
         const cartDetails = cart.map(item => ({
@@ -90,9 +102,11 @@ export default function CartPage() {
           variantId: variantIds[item.id] || 'NÃO ENCONTRADO'
         }));
         
-        console.error("❌ Nenhum produto válido encontrado");
-        console.error("📋 Itens do carrinho:", cartDetails);
-        console.error("📦 Mapeamento disponível:", Object.keys(shopifyProductMapping).map(k => Number(k)));
+        if (process.env.NODE_ENV !== "production") {
+          console.error("❌ Nenhum produto válido encontrado");
+          console.error("📋 Itens do carrinho:", cartDetails);
+          console.error("📦 Mapeamento disponível:", Object.keys(shopifyProductMapping).map(k => Number(k)));
+        }
         
         setCheckoutError(
           `Não foi possível processar o checkout. Verifique se os produtos estão disponíveis na Shopify. ` +
@@ -108,13 +122,17 @@ export default function CartPage() {
       if (checkout?.webUrl || checkout?.checkoutUrl) {
         // Redirect to Shopify checkout
         const checkoutUrl = checkout.webUrl || checkout.checkoutUrl;
-        console.log("✅ Redirecionando para:", checkoutUrl);
+        if (process.env.NODE_ENV !== "production") {
+          console.log("✅ Redirecionando para:", checkoutUrl);
+        }
         window.location.href = checkoutUrl;
       } else {
         throw new Error("URL de checkout não retornada");
       }
     } catch (error: any) {
-      console.error("Erro ao criar checkout:", error);
+      if (process.env.NODE_ENV !== "production") {
+        console.error("Erro ao criar checkout:", error);
+      }
       setCheckoutError(error.message || "Erro ao processar checkout. Tente novamente.");
       setIsProcessing(false);
     }
@@ -183,69 +201,74 @@ export default function CartPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Cart Items */}
-            <div className="lg:col-span-2 space-y-4">
+            <div className="space-y-4 lg:col-span-2">
               {cart.map((item) => (
                 <div
                   key={item.id}
-                  className="bg-white border border-gray-200 rounded-2xl p-6 hover:shadow-lg transition-shadow duration-300"
+                  className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition-shadow duration-300 hover:shadow-lg sm:p-5"
                 >
-                  <div className="flex gap-6">
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-6">
                     {/* Product Image */}
                     <Link href={`/product/${item.slug}`} className="flex-shrink-0">
-                      <div className="relative w-24 h-24 sm:w-32 sm:h-32 rounded-lg overflow-hidden bg-gray-100">
+                      <div className="relative h-24 w-full overflow-hidden rounded-xl bg-gray-100 sm:h-28 sm:w-28">
                         <Image
                           src={item.images[0] || "/images/placeholder-product.jpg"}
                           alt={item.name}
                           fill
                           className="object-contain"
+                          sizes="(max-width: 640px) 45vw, 120px"
+                          quality={80}
                         />
                       </div>
                     </Link>
 
                     {/* Product Info */}
-                    <div className="flex-1 min-w-0">
+                    <div className="flex min-w-0 flex-1 flex-col gap-3">
                       <Link href={`/product/${item.slug}`}>
-                        <h3 className="text-lg font-bold text-gray-900 mb-2 hover:text-pink-600 transition-colors">
+                        <h3 className="text-base font-semibold text-gray-900 transition-colors hover:text-pink-600 sm:text-lg">
                           {item.name}
                         </h3>
                       </Link>
-                      <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+                      <p className="text-sm text-gray-600 line-clamp-3">
                         {item.description}
                       </p>
 
                       {/* Price and Quantity */}
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <div className="flex items-center gap-3 mb-2">
-                            <span className="text-xl font-bold text-gray-900">
+                      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                        <div className="space-y-1">
+                          <div className="flex items-center gap-2">
+                            <span className="text-lg font-bold text-gray-900 sm:text-xl">
                               {formatPrice(item.price)}
                             </span>
                             {item.originalPrice && (
-                              <span className="text-base text-gray-400 line-through">
+                              <span className="text-sm text-gray-400 line-through sm:text-base">
                                 {formatPrice(item.originalPrice)}
                               </span>
                             )}
                           </div>
-                          <p className="text-sm text-gray-600">
-                            Subtotal: <span className="font-semibold">{formatPrice(item.price * item.quantity)}</span>
+                          <p className="text-xs font-medium uppercase tracking-wide text-gray-500 sm:text-sm">
+                            Subtotal:{" "}
+                            <span className="font-semibold text-gray-900">
+                              {formatPrice(item.price * item.quantity)}
+                            </span>
                           </p>
                         </div>
 
                         {/* Quantity Controls */}
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center justify-between gap-3 rounded-full border border-gray-200 bg-white px-2 py-1 sm:justify-start sm:px-3">
                           <button
                             onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
-                            className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-colors"
+                            className="flex h-8 w-8 items-center justify-center rounded-full text-gray-600 transition-colors hover:bg-gray-100"
                             aria-label="Decrease quantity"
                           >
                             <Minus className="w-4 h-4 text-gray-600" />
                           </button>
-                          <span className="w-12 text-center font-semibold text-gray-900">
+                          <span className="min-w-[2.5rem] text-center text-sm font-semibold text-gray-900 sm:text-base">
                             {item.quantity}
                           </span>
                           <button
                             onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
-                            className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-colors"
+                            className="flex h-8 w-8 items-center justify-center rounded-full text-gray-600 transition-colors hover:bg-gray-100"
                             aria-label="Increase quantity"
                             disabled={item.quantity >= 99}
                           >
@@ -256,13 +279,16 @@ export default function CartPage() {
                     </div>
 
                     {/* Remove Button */}
-                    <button
-                      onClick={() => removeFromCart(item.id)}
-                      className="flex-shrink-0 w-10 h-10 rounded-full bg-red-50 text-red-600 flex items-center justify-center hover:bg-red-100 transition-colors"
-                      aria-label="Remove from cart"
-                    >
-                      <Trash2 className="w-5 h-5" />
-                    </button>
+                    <div className="flex justify-end sm:justify-between">
+                      <button
+                        onClick={() => removeFromCart(item.id)}
+                        className="inline-flex items-center gap-1 rounded-full bg-red-50 px-3 py-1.5 text-xs font-semibold text-red-600 transition-colors hover:bg-red-100 sm:px-4 sm:text-sm"
+                        aria-label="Remove from cart"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                        Quitar
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}

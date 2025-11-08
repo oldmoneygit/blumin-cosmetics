@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import { isValidEmail } from "@/lib/utils";
+import { useCart } from "@/hooks/useCart";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -49,18 +50,20 @@ export default function ContactPage() {
     }, 1500);
   };
 
+  const { getItemCount } = useCart();
+
   return (
     <main className="min-h-screen">
-      <Header cartItemCount={0} />
+      <Header cartItemCount={getItemCount()} />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-16 lg:pt-40 lg:pb-24 bg-gradient-to-b from-pink-50 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight text-gray-900 mb-6">
+      <section className="bg-gradient-to-b from-pink-50 to-white pt-24 pb-14 sm:pt-28 sm:pb-16 lg:pt-36 lg:pb-20">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-3xl text-center">
+            <h1 className="mb-4 text-3xl font-black uppercase tracking-tight text-gray-900 sm:text-4xl md:text-5xl lg:text-6xl">
               Contactanos
             </h1>
-            <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
+            <p className="text-pretty text-base leading-relaxed text-gray-600 sm:text-lg md:text-xl">
               Estamos aquí para ayudarte. Envíanos tu consulta y te responderemos lo antes posible.
             </p>
           </div>
@@ -68,48 +71,48 @@ export default function ContactPage() {
       </section>
 
       {/* Contact Section */}
-      <section className="py-16 lg:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-3 gap-12">
+      <section className="bg-white py-12 sm:py-16 lg:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-10 lg:grid-cols-3 lg:gap-12">
             {/* Contact Info */}
             <div className="lg:col-span-1">
-              <div className="space-y-8">
-                <div>
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center">
+              <div className="space-y-6 sm:space-y-8">
+                <div className="rounded-3xl border border-pink-100 bg-pink-50/40 p-5 sm:p-6">
+                  <div className="mb-4 flex items-center gap-3">
+                    <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-white text-pink-600">
                       <Mail className="w-6 h-6 text-pink-600" />
                     </div>
                     <div>
-                      <h3 className="text-lg font-bold text-gray-900">Email</h3>
+                      <h3 className="text-base font-bold text-gray-900 sm:text-lg">Email</h3>
                     </div>
                   </div>
-                  <p className="text-gray-600 ml-16">info@blumin.com</p>
-                  <p className="text-gray-600 ml-16">ventas@blumin.com</p>
+                  <p className="pl-12 text-sm text-gray-600 sm:pl-0 sm:text-base">info@blumin.com</p>
+                  <p className="pl-12 text-sm text-gray-600 sm:pl-0 sm:text-base">ventas@blumin.com</p>
                 </div>
 
-                <div>
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center">
+                <div className="rounded-3xl border border-pink-100 bg-pink-50/40 p-5 sm:p-6">
+                  <div className="mb-4 flex items-center gap-3">
+                    <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-white text-pink-600">
                       <Phone className="w-6 h-6 text-pink-600" />
                     </div>
                     <div>
-                      <h3 className="text-lg font-bold text-gray-900">Teléfono</h3>
+                      <h3 className="text-base font-bold text-gray-900 sm:text-lg">Teléfono</h3>
                     </div>
                   </div>
-                  <p className="text-gray-600 ml-16">+54 11 1234-5678</p>
-                  <p className="text-gray-600 ml-16">Lun - Vie: 9:00 - 18:00</p>
+                  <p className="pl-12 text-sm text-gray-600 sm:pl-0 sm:text-base">+54 11 1234-5678</p>
+                  <p className="pl-12 text-sm text-gray-600 sm:pl-0 sm:text-base">Lun - Vie: 9:00 - 18:00</p>
                 </div>
 
-                <div>
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center">
+                <div className="rounded-3xl border border-pink-100 bg-pink-50/40 p-5 sm:p-6">
+                  <div className="mb-4 flex items-center gap-3">
+                    <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-white text-pink-600">
                       <MapPin className="w-6 h-6 text-pink-600" />
                     </div>
                     <div>
-                      <h3 className="text-lg font-bold text-gray-900">Dirección</h3>
+                      <h3 className="text-base font-bold text-gray-900 sm:text-lg">Dirección</h3>
                     </div>
                   </div>
-                  <p className="text-gray-600 ml-16">
+                  <p className="pl-12 text-sm text-gray-600 sm:pl-0 sm:text-base">
                     Av. Corrientes 1234<br />
                     C1043AAX, Buenos Aires<br />
                     Argentina
@@ -121,7 +124,7 @@ export default function ContactPage() {
             {/* Contact Form */}
             <div className="lg:col-span-2">
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid gap-5 md:grid-cols-2">
                   <div>
                     <label htmlFor="name" className="block text-sm font-semibold text-gray-900 mb-2">
                       Nombre Completo *
@@ -176,7 +179,7 @@ export default function ContactPage() {
                       required
                       value={formData.subject}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-pink-500"
+                      className="w-full rounded-lg border border-gray-300 bg-white px-3 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-pink-500 sm:px-4 sm:text-base"
                     >
                       <option value="">Selecciona un asunto</option>
                       <option value="consultation">Consulta General</option>
@@ -200,18 +203,18 @@ export default function ContactPage() {
                     value={formData.message}
                     onChange={handleChange}
                     placeholder="Escribe tu mensaje aquí..."
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-pink-500 resize-none"
+                    className="w-full resize-none rounded-lg border border-gray-300 bg-white px-3 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-pink-500 sm:px-4 sm:text-base"
                   />
                 </div>
 
                 {submitStatus === "success" && (
-                  <div className="p-4 bg-green-50 border border-green-200 rounded-lg text-green-800">
+                  <div className="rounded-lg border border-green-200 bg-green-50 p-4 text-green-800">
                     ¡Mensaje enviado exitosamente! Te responderemos pronto.
                   </div>
                 )}
 
                 {submitStatus === "error" && (
-                  <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-800">
+                  <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-red-800">
                     Por favor, verifica que el email sea válido.
                   </div>
                 )}
@@ -223,7 +226,7 @@ export default function ContactPage() {
                     disabled={isSubmitting}
                     className="w-full sm:w-auto"
                   >
-                    <Send className="w-5 h-5 mr-2" />
+                    <Send className="mr-2 h-5 w-5" />
                     {isSubmitting ? "Enviando..." : "Enviar Mensaje"}
                   </Button>
                 </div>

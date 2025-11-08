@@ -10,31 +10,52 @@
 
   body {
     @apply bg-white text-gray-900 font-body antialiased text-base;
-    font-size: 17px;
+    font-size: clamp(15px, 1.5vw, 17px);
+    line-height: 1.6;
   }
 
   html {
     scroll-behavior: smooth;
   }
 
-  /* Apply Roboto to all headings with increased sizes */
+  /* Apply Roboto to all headings with fluid sizes */
   h1 {
-    @apply font-heading text-5xl sm:text-6xl;
+    @apply font-heading font-black text-gray-900;
+    font-size: clamp(2.25rem, 5vw, 3.75rem);
   }
+
   h2 {
-    @apply font-heading text-4xl sm:text-5xl;
+    @apply font-heading font-bold text-gray-900;
+    font-size: clamp(1.875rem, 4vw, 3rem);
   }
+
   h3 {
-    @apply font-heading text-3xl sm:text-4xl;
+    @apply font-heading font-bold text-gray-900;
+    font-size: clamp(1.5rem, 3.2vw, 2.5rem);
   }
+
   h4 {
-    @apply font-heading text-2xl sm:text-3xl;
+    @apply font-heading font-semibold text-gray-900;
+    font-size: clamp(1.25rem, 2.8vw, 2rem);
   }
+
   h5 {
-    @apply font-heading text-xl sm:text-2xl;
+    @apply font-heading font-semibold text-gray-900;
+    font-size: clamp(1.125rem, 2.5vw, 1.75rem);
   }
+
   h6 {
-    @apply font-heading text-lg sm:text-xl;
+    @apply font-heading font-semibold text-gray-900;
+    font-size: clamp(1rem, 2.2vw, 1.5rem);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
@@ -59,7 +80,7 @@
   /* Smooth transitions */
   a,
   button {
-    @apply transition-all duration-300;
+    @apply transition-all duration-200;
   }
 
   /* Focus states for accessibility */

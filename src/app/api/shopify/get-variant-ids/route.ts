@@ -27,6 +27,22 @@ const GET_VARIANT_BY_HANDLE_QUERY = `
   }
 `;
 
+const GET_VARIANT_BY_ID_QUERY = `
+  query getVariantById($id: ID!) {
+    product(id: $id) {
+      id
+      handle
+      variants(first: 1) {
+        edges {
+          node {
+            id
+          }
+        }
+      }
+    }
+  }
+`;
+
 async function shopifyStorefrontRequest(query: string, variables?: Record<string, any>) {
   if (!SHOPIFY_STOREFRONT_ACCESS_TOKEN) {
     throw new Error('SHOPIFY_STOREFRONT_ACCESS_TOKEN não configurado no servidor');
@@ -67,6 +83,11 @@ async function shopifyStorefrontRequest(query: string, variables?: Record<string
   return data.data;
 }
 
+function toShopifyGID(type: string, id: string): string {
+  const raw = `gid://shopify/${type}/${id}`;
+  return Buffer.from(raw).toString("base64");
+}
+
 export async function POST(request: NextRequest) {
   try {
     const { productIds } = await request.json();
@@ -88,34 +109,68 @@ export async function POST(request: NextRequest) {
           continue;
         }
 
-        console.log(`🔍 Buscando variant ID via Storefront API para handle: ${mapping.shopifyHandle}`);
+        const handlesTried: string[] = [];
+        let resolvedVariantId: string | null = null;
 
-        // Get variant ID using Storefront API (correct format)
-        const data = await shopifyStorefrontRequest(
-          GET_VARIANT_BY_HANDLE_QUERY,
-          { handle: mapping.shopifyHandle }
-        );
+        // First attempt: fetch by Shopify product ID (converted to GID)
+        if (mapping.shopifyId) {
+          const productGid = mapping.shopifyId.startsWith("gid://") || mapping.shopifyId.startsWith("Z2lkOi8")
+            ? mapping.shopifyId
+            : toShopifyGID("Product", mapping.shopifyId);
 
-        console.log(`📦 Resposta da Storefront API para ${mapping.shopifyHandle}:`, {
-          hasProduct: !!data.product,
-          productId: data.product?.id,
-          variantsCount: data.product?.variants?.edges?.length || 0
-        });
+          console.log(`🔍 Buscando variant ID via Storefront API para productId: ${productGid}`);
 
-        if (!data.product) {
-          console.warn(`⚠️ Produto não encontrado na Storefront API para handle: ${mapping.shopifyHandle}`);
-          console.warn(`   Isso pode acontecer se o produto não estiver publicado na Shopify`);
+          try {
+            const dataById = await shopifyStorefrontRequest(
+              GET_VARIANT_BY_ID_QUERY,
+              { id: productGid }
+            );
+
+            console.log(`📦 Resposta da Storefront API (ID) para produto ${productId}:`, {
+              hasProduct: !!dataById.product,
+              handle: dataById.product?.handle,
+              variantsCount: dataById.product?.variants?.edges?.length || 0,
+            });
+
+            if (dataById.product?.variants?.edges?.length > 0) {
+              resolvedVariantId = dataById.product.variants.edges[0].node.id;
+            }
+          } catch (error: any) {
+            console.warn(`⚠️ Falha ao buscar por ID (${productGid}): ${error.message}`);
+          }
+        }
+
+        // Second attempt: fallback to handle if needed
+        if (!resolvedVariantId && mapping.shopifyHandle) {
+          handlesTried.push(mapping.shopifyHandle);
+          console.log(`🔄 Tentando fallback com handle: ${mapping.shopifyHandle}`);
+
+          const dataByHandle = await shopifyStorefrontRequest(
+            GET_VARIANT_BY_HANDLE_QUERY,
+            { handle: mapping.shopifyHandle }
+          );
+
+          console.log(`📦 Resposta da Storefront API (handle) para ${mapping.shopifyHandle}:`, {
+            hasProduct: !!dataByHandle.product,
+            productId: dataByHandle.product?.id,
+            variantsCount: dataByHandle.product?.variants?.edges?.length || 0,
+          });
+
+          if (dataByHandle.product?.variants?.edges?.length > 0) {
+            resolvedVariantId = dataByHandle.product.variants.edges[0].node.id;
+          }
+        }
+
+        if (resolvedVariantId) {
+          console.log(`✅ Variant ID encontrado: ${resolvedVariantId}`);
+          variantIds[productId] = resolvedVariantId;
           continue;
         }
 
-        if (data.product?.variants?.edges?.length > 0) {
-          const variantId = data.product.variants.edges[0].node.id;
-          console.log(`✅ Variant ID encontrado: ${variantId}`);
-          variantIds[productId] = variantId;
-        } else {
-          console.warn(`⚠️ Nenhuma variante encontrada para produto ${productId} (handle: ${mapping.shopifyHandle})`);
-          console.warn(`   Produto ID: ${data.product.id}`);
-        }
+        console.warn(`⚠️ Nenhuma variante encontrada para produto ${productId}. Tentativas:`, {
+          shopifyId: mapping.shopifyId,
+          handlesTried,
+        });
       } catch (error: any) {
         console.error(`❌ Erro ao buscar variant ID para produto ${productId}:`, error.message);
         continue;

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Roboto, Assistant } from "next/font/google";
 import "../styles/globals.css";
+import { ToastContainer } from "@/components/ui/Toast";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -59,6 +60,7 @@ export default function RootLayout({
     >
       <body className={`${assistant.variable} font-assistant antialiased`}>
         {children}
+        <ToastContainer />
       </body>
     </html>
   );

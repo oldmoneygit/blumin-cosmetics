@@ -79,11 +79,17 @@ export const ProductHighlights = () => {
             >
               {/* Image Container */}
               <div className="relative w-full overflow-hidden rounded-3xl">
-                <img
-                  src={highlight.image}
-                  alt={highlight.title}
-                  className="w-full h-auto group-hover:scale-105 transition-transform duration-500"
-                />
+                <div className="relative h-72 w-full sm:h-72 lg:h-80">
+                  <Image
+                    src={highlight.image}
+                    alt={highlight.title}
+                    fill
+                    quality={80}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 45vw, 30vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    priority={highlight.id === 1}
+                  />
+                </div>
 
                 {/* Overlay Text */}
                 <div className="absolute inset-0 flex flex-col justify-end p-6 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">

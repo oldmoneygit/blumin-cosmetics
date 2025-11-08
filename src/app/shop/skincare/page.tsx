@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/Button";
 import { products } from "@/data/products";
 import { Product } from "@/types";
 import { useCart } from "@/hooks/useCart";
+import { useToast } from "@/hooks/useToast";
 import { Grid, List, Sparkles, Droplet, Wind, Shield, FlaskConical, Eye } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
@@ -61,6 +62,7 @@ const skincareCategories = [
 
 export default function SkincarePage() {
   const { addToCart, getItemCount } = useCart();
+  const { showToast } = useToast();
   const [sortBy, setSortBy] = useState<string>("featured");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -121,6 +123,17 @@ export default function SkincarePage() {
 
   const handleAddToCart = (product: Product) => {
     addToCart(product, 1);
+    showToast({
+      title: product.name,
+      description: "Agregado al carrito",
+      type: "success",
+      image: product.images?.[0],
+      price: product.price,
+      quantity: 1,
+      ctaLabel: "Ver carrito",
+      ctaHref: "/cart",
+      duration: 6000,
+    });
   };
 
   return (

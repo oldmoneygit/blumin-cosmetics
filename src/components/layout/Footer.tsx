@@ -14,8 +14,7 @@ const footerNavigation = {
     { name: "Política de Privacidad", href: "/privacy" },
   ],
   social: [
-    { name: "Instagram", href: "https://instagram.com" },
-    { name: "TikTok Shop", href: "https://tiktok.com" },
+    { name: "Instagram", href: "https://www.instagram.com/blumincosmetics/" },
   ],
   help: [
     { name: "FAQ", href: "/faq" },
