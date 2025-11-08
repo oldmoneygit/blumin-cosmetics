@@ -1,0 +1,52 @@
+"use client";
+
+import Script from "next/script";
+import { getMetaPixelId, isMetaPixelConfigured } from "@/utils/metaPixel";
+
+interface MetaPixelScriptProps {
+  testEventCode?: string;
+}
+
+export function MetaPixelScript({ testEventCode }: MetaPixelScriptProps) {
+  const pixelId = getMetaPixelId();
+
+  if (!isMetaPixelConfigured() || !pixelId) {
+    if (process.env.NODE_ENV !== "production") {
+      console.warn("[Meta Pixel] NEXT_PUBLIC_META_PIXEL_ID não configurado");
+    }
+    return null;
+  }
+
+  return (
+    <Script
+      id="meta-pixel-script"
+      strategy="afterInteractive"
+      dangerouslySetInnerHTML={{
+        __html: `
+          !function(f,b,e,v,n,t,s)
+          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+          n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t,s)}(window, document,'script',
+          'https://connect.facebook.net/en_US/fbevents.js');
+
+          fbq('init', '${pixelId}', {
+            em: 'enabled',
+            external_id: 'enabled'
+          }${testEventCode ? `, { test_event_code: '${testEventCode}' }` : ""});
+          fbq('track', 'PageView');
+
+          console.info('[Meta Pixel] Inicializado', {
+            pixelId: '${pixelId}',
+            advancedMatching: true,
+            testEventCode: ${testEventCode ? `'${testEventCode}'` : "null"}
+          });
+        `,
+      }}
+    />
+  );
+}
+
+

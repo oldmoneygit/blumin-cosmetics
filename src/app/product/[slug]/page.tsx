@@ -14,6 +14,7 @@ import { Product } from "@/types";
 import { formatPrice, calculateDiscount } from "@/lib/utils";
 import { useCart } from "@/hooks/useCart";
 import { useToast } from "@/hooks/useToast";
+import { ViewContentEvent } from "@/components/tracking/MetaPixelEvents";
 import {
   Star,
   ShoppingCart,
@@ -173,6 +174,15 @@ export default function ProductPage() {
   return (
     <div className="min-h-screen bg-white">
       <Header cartItemCount={getItemCount()} />
+      <ViewContentEvent
+        product={{
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          currency: "ARS",
+          category: product.category,
+        }}
+      />
 
       {/* Breadcrumb */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-2 sm:pb-4">

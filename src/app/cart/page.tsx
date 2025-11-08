@@ -11,6 +11,8 @@ import Link from "next/link";
 import { Trash2, Plus, Minus, ShoppingBag, ArrowLeft, Loader2 } from "lucide-react";
 import { shopifyProductMapping } from "@/data/shopify-mapping";
 import { createStorefrontCheckout } from "@/lib/shopify-storefront";
+import { triggerInitiateCheckout } from "@/components/tracking/MetaPixelEvents";
+import { appendTrackingParams } from "@/utils/metaPixel";
 
 export default function CartPage() {
   const { cart, removeFromCart, updateQuantity, clearCart, getTotal, getItemCount } = useCart();
@@ -29,6 +31,17 @@ export default function CartPage() {
 
   const handleCheckout = async () => {
     if (cart.length === 0) return;
+
+    triggerInitiateCheckout(
+      cart.map((item) => ({
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        category: item.category,
+        currency: "ARS",
+        quantity: item.quantity,
+      }))
+    );
 
     setIsProcessing(true);
     setCheckoutError(null);
@@ -121,7 +134,7 @@ export default function CartPage() {
 
       if (checkout?.webUrl || checkout?.checkoutUrl) {
         // Redirect to Shopify checkout
-        const checkoutUrl = checkout.webUrl || checkout.checkoutUrl;
+        const checkoutUrl = appendTrackingParams(checkout.webUrl || checkout.checkoutUrl);
         if (process.env.NODE_ENV !== "production") {
           console.log("✅ Redirecionando para:", checkoutUrl);
         }

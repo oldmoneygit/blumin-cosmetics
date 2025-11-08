@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Roboto, Assistant } from "next/font/google";
 import "../styles/globals.css";
 import { ToastContainer } from "@/components/ui/Toast";
+import { MetaPixelProvider } from "@/components/tracking/MetaPixelProvider";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -48,6 +49,8 @@ export const metadata: Metadata = {
   },
 };
 
+const metaTestCode = process.env.NEXT_PUBLIC_META_TEST_EVENT_CODE;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -59,7 +62,9 @@ export default function RootLayout({
       className={`${roboto.variable} ${assistant.variable}`}
     >
       <body className={`${assistant.variable} font-assistant antialiased`}>
-        {children}
+        <MetaPixelProvider testEventCode={metaTestCode}>
+          {children}
+        </MetaPixelProvider>
         <ToastContainer />
       </body>
     </html>

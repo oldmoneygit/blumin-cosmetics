@@ -1,6 +1,9 @@
+"use client";
+
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { Product, CartItem } from "@/types";
+import { triggerAddToCart } from "@/components/tracking/MetaPixelEvents";
 
 // Constants for cart validation
 const MAX_QUANTITY_PER_ITEM = 99;
@@ -75,6 +78,17 @@ export const useCart = create<CartStore>()(
             cart: [...state.cart, { ...product, quantity }],
           };
         });
+
+        triggerAddToCart(
+          {
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            category: product.category,
+            currency: "ARS",
+          },
+          quantity
+        );
       },
 
       /**
