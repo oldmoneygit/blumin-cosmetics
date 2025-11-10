@@ -3,6 +3,7 @@ import { Roboto, Assistant } from "next/font/google";
 import "../styles/globals.css";
 import { ToastContainer } from "@/components/ui/Toast";
 import { MetaPixelProvider } from "@/components/tracking/MetaPixelProvider";
+import { Analytics } from "@vercel/analytics/react";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -66,6 +67,7 @@ export default function RootLayout({
           {children}
         </MetaPixelProvider>
         <ToastContainer />
+        <Analytics />
       </body>
     </html>
   );
