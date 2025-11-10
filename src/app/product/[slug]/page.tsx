@@ -517,10 +517,7 @@ export default function ProductPage() {
               >
                 <ShoppingCart className="h-4 w-4 sm:h-5 sm:w-5" />
                 {addedToCart ? (
-                  <>
-                    <Check className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
-                    <span>¡Agregado!</span>
-                  </>
+                  <span>¡Agregado!</span>
                 ) : (
                   <>
                     <span className="hidden sm:inline">{product.inStock ? "Agregar al Carrito" : "Agotado"}</span>

@@ -1066,7 +1066,7 @@ export const products: Product[] = [
   },
   {
     id: 21,
-    name: "2 Multi Balms + 🎁 Crema Hidratante Core",
+    name: "2 Multi Balms + 🎁 Crema Hidratante Core (Gratis)",
     slug: "2-multi-balms-core-cream-moisturizer",
     description: "2 Bálsamos Multi + Core Cream como regalo",
     fullDescription:

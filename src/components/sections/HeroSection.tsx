@@ -154,7 +154,7 @@ export const HeroSection = () => {
                         src={slide}
                         alt={`KAHI Beauty Slide ${index + 1}`}
                         fill
-                        className="object-contain bg-white"
+                        className="h-full w-full object-cover"
                         quality={85}
                         priority={index === 0}
                         sizes="100vw"
