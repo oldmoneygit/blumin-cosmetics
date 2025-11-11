@@ -32,10 +32,7 @@ export function MetaPixelScript({ testEventCode }: MetaPixelScriptProps) {
           s.parentNode.insertBefore(t,s)}(window, document,'script',
           'https://connect.facebook.net/en_US/fbevents.js');
 
-          fbq('init', '${pixelId}', {
-            em: 'enabled',
-            external_id: 'enabled'
-          }${testEventCode ? `, { test_event_code: '${testEventCode}' }` : ""});
+          fbq('init', '${pixelId}'${testEventCode ? `, {}, { test_event_code: '${testEventCode}' }` : ""});
           fbq('track', 'PageView');
 
           console.info('[Meta Pixel] Inicializado', {

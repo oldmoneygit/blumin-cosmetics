@@ -7,7 +7,7 @@ import { formatPrice } from "@/lib/utils";
 import { useMemo, type ReactNode } from "react";
 
 const iconByType: Record<ToastType, ReactNode> = {
-  success: <CheckCircle2 className="h-5 w-5 text-pink-500" />,
+  success: null,
   error: <AlertTriangle className="h-5 w-5 text-red-500" />,
   info: <Info className="h-5 w-5 text-blue-500" />,
 };
@@ -92,9 +92,11 @@ export function ToastContainer() {
                       <ShoppingBag className="h-7 w-7" />
                     </div>
                   )}
-                  <div className={`absolute -bottom-2 -right-2 inline-flex items-center justify-center rounded-full border border-white bg-gradient-to-r ${gradient} p-1.5 shadow-lg`}>
-                    {icon}
-                  </div>
+                  {icon && (
+                    <div className={`absolute -bottom-2 -right-2 inline-flex items-center justify-center rounded-full border border-white bg-gradient-to-r ${gradient} p-1.5 shadow-lg`}>
+                      {icon}
+                    </div>
+                  )}
                 </div>
 
                 <div className="flex-1 space-y-1.5">
