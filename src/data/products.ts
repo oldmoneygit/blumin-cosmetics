@@ -3,7 +3,7 @@ import { Product, Ingredient, FAQ } from "@/types";
 export const products: Product[] = [
   {
     id: 1,
-    name: "Bálsamo Multi Rebote de Arrugas",
+    name: "Bálsamo En Barra de Colágeno",
     slug: "wrinkle-bounce-multi-balm",
     description: "Stick multiuso para hidratación instantánea y luminosidad",
     fullDescription:
@@ -847,7 +847,7 @@ export const products: Product[] = [
     slug: "multi-balm-core-cream-moisturizer",
     description: "Combo perfecto: Bálsamo Multi + Crema de Colágeno",
     fullDescription:
-      "Set exclusivo que combina el poder del Bálsamo Multi Rebote de Arrugas con la Crema Core de Colágeno. Rutina completa de hidratación y cuidado anti-edad en un solo combo. Ideal para lograr una piel firme, hidratada y luminosa.",
+      "Set exclusivo que combina el poder del Bálsamo En Barra de Colágeno con la Crema Core de Colágeno. Rutina completa de hidratación y cuidado anti-edad en un solo combo. Ideal para lograr una piel firme, hidratada y luminosa.",
     price: 62367.75,
     images: [
       "/images/products/multi-balm-core-cream-moisturizer.jpg",
@@ -884,7 +884,7 @@ export const products: Product[] = [
     slug: "multi-balm-blending-essence",
     description: "Combo perfecto: Bálsamo Multi + Esencia Mezcladora",
     fullDescription:
-      "Set exclusivo que combina el poder hidratante del Bálsamo Multi Rebote de Arrugas con la Esencia Mezcladora Ajuste Perfecto. Rutina completa para hidratación instantánea y acabado perfecto de poros. Ideal para una base impecable antes del maquillaje.",
+      "Set exclusivo que combina el poder hidratante del Bálsamo En Barra de Colágeno con la Esencia Mezcladora Ajuste Perfecto. Rutina completa para hidratación instantánea y acabado perfecto de poros. Ideal para una base impecable antes del maquillaje.",
     price: 57290.12,
     images: [
       "/images/products/multi-balm-blending-essence.jpg",
@@ -921,7 +921,7 @@ export const products: Product[] = [
     slug: "multi-balm-collagen-ampoule-mist",
     description: "Combo perfecto: Bálsamo Multi + Ampolla Colágeno en Bruma",
     fullDescription:
-      "Set exclusivo que combina el poder hidratante del Bálsamo Multi Rebote de Arrugas con la Ampolla de Colágeno en Bruma. Rutina completa para hidratación instantánea y reducción de líneas finas. Ideal para piel hidratada y fresca durante todo el día.",
+      "Set exclusivo que combina el poder hidratante del Bálsamo En Barra de Colágeno con la Ampolla de Colágeno en Bruma. Rutina completa para hidratación instantánea y reducción de líneas finas. Ideal para piel hidratada y fresca durante todo el día.",
     price: 60917.0,
     images: [
       "/images/products/multi-balm-collagen-ampoule-mist.jpg",
@@ -958,7 +958,7 @@ export const products: Product[] = [
     slug: "multi-balm-han-gyob-cream",
     description: "Combo perfecto: Bálsamo Multi + Single Veil Cream",
     fullDescription:
-      "Set exclusivo que combina el poder hidratante del Bálsamo Multi Rebote de Arrugas con la Single Veil Cream (Hangyob Foundation). Rutina completa para hidratación instantánea y cobertura natural. Ideal para un look perfecto con base de segunda piel.",
+      "Set exclusivo que combina el poder hidratante del Bálsamo En Barra de Colágeno con la Single Veil Cream (Hangyob Foundation). Rutina completa para hidratación instantánea y cobertura natural. Ideal para un look perfecto con base de segunda piel.",
     price: 51487.12,
     images: [
       "/images/products/multi-balm-han-gyob-cream.jpg",
@@ -1070,7 +1070,7 @@ export const products: Product[] = [
     slug: "2-multi-balms-core-cream-moisturizer",
     description: "2 Bálsamos Multi + Core Cream como regalo",
     fullDescription:
-      "Set especial que incluye 2 unidades del Bálsamo Multi Rebote de Arrugas más la Crema Core de Colágeno como regalo adicional. Perfecto combo para hidratación intensa y cuidado anti-edad. La crema core es un regalo exclusivo con tu compra.",
+      "Set especial que incluye 2 unidades del Bálsamo En Barra de Colágeno más la Crema Core de Colágeno como regalo adicional. Perfecto combo para hidratación intensa y cuidado anti-edad. La crema core es un regalo exclusivo con tu compra.",
     price: 66705.49,
     images: [
       "/images/products/2-multi-balms-core-cream-moisturizer.jpg",
@@ -1107,7 +1107,7 @@ export const products: Product[] = [
     slug: "2-multi-balms-blending-essence-free",
     description: "2 Bálsamos Multi + Esencia Mezcladora gratis",
     fullDescription:
-      "Set especial que incluye 2 unidades del Bálsamo Multi Rebote de Arrugas más la Esencia Mezcladora Ajuste Perfecto como regalo gratuito. Perfecto combo para hidratación instantánea y acabado perfecto. La esencia mezcladora es gratis con tu compra.",
+      "Set especial que incluye 2 unidades del Bálsamo En Barra de Colágeno más la Esencia Mezcladora Ajuste Perfecto como regalo gratuito. Perfecto combo para hidratación instantánea y acabado perfecto. La esencia mezcladora es gratis con tu compra.",
     price: 66705.49,
     images: [
       "/images/products/2-multi-balms-blending-essence-free.jpg",
@@ -1144,7 +1144,7 @@ export const products: Product[] = [
     slug: "2-multi-balms-han-gyob-cream-free",
     description: "2 Bálsamos Multi + Crema Han Gyob gratis",
     fullDescription:
-      "Set especial que incluye 2 unidades del Bálsamo Multi Rebote de Arrugas más la Single Veil Cream (Hangyob Foundation) como regalo gratuito. Perfecto combo para hidratación instantánea y cobertura natural. La crema Han Gyob es gratis con tu compra.",
+      "Set especial que incluye 2 unidades del Bálsamo En Barra de Colágeno más la Single Veil Cream (Hangyob Foundation) como regalo gratuito. Perfecto combo para hidratación instantánea y cobertura natural. La crema Han Gyob es gratis con tu compra.",
     price: 66705.49,
     images: [
       "/images/products/2-multi-balms-han-gyob-cream-free.jpg",
@@ -1182,7 +1182,7 @@ export const products: Product[] = [
     slug: "2-multi-balms-ampoule-mist-free",
     description: "2 Bálsamos Multi + Ampolla en Bruma gratis",
     fullDescription:
-      "Set especial que incluye 2 unidades del Bálsamo Multi Rebote de Arrugas más el Sérum Rebote de Colágeno para Líneas Finas (Ampolla en Bruma) como regalo gratuito. Perfecto combo para hidratación instantánea y reducción de líneas finas. La ampolla en bruma es gratis con tu compra.",
+      "Set especial que incluye 2 unidades del Bálsamo En Barra de Colágeno más el Sérum Rebote de Colágeno para Líneas Finas (Ampolla en Bruma) como regalo gratuito. Perfecto combo para hidratación instantánea y reducción de líneas finas. La ampolla en bruma es gratis con tu compra.",
     price: 66705.49,
     images: [
       "/images/products/2-multi-balms-ampoule-mist-free.jpg",
@@ -1220,7 +1220,7 @@ export const products: Product[] = [
     slug: "multi-balm-face-mask-han-gyob-cream-free",
     description: "Multi Balm + Mascarilla + Crema Han Gyob gratis",
     fullDescription:
-      "Set especial que incluye el Bálsamo Multi Rebote de Arrugas, la Mascarilla Facial Hidratante Water Full y la Single Veil Cream (Hangyob Foundation) como regalo gratuito. Rutina completa para hidratación intensa y cuidado de la piel. La crema Han Gyob es gratis con tu compra.",
+      "Set especial que incluye el Bálsamo En Barra de Colágeno, la Mascarilla Facial Hidratante Water Full y la Single Veil Cream (Hangyob Foundation) como regalo gratuito. Rutina completa para hidratación intensa y cuidado de la piel. La crema Han Gyob es gratis con tu compra.",
     price: 73959.24,
     images: [
       "/images/products/multi-balm-face-mask-han-gyob-cream-free.jpg",
@@ -1296,9 +1296,9 @@ export const products: Product[] = [
     id: 27,
     name: "Set Duo de Bálsamo Multi",
     slug: "wrinkle-bounce-multi-balm-duo-edition",
-    description: "2 unidades del Bálsamo Multi Rebote de Arrugas",
+    description: "2 unidades del Bálsamo En Barra de Colágeno",
     fullDescription:
-      "Edición especial DUO del Bálsamo Multi Rebote de Arrugas. Incluye 2 unidades del producto más vendido de KAHI para hidratación instantánea por 144 horas. Perfecto para uso prolongado, compartir o tener un respaldo. Ahorro significativo con la compra de 2 unidades.",
+      "Edición especial DUO del Bálsamo En Barra de Colágeno. Incluye 2 unidades del producto más vendido de KAHI para hidratación instantánea por 144 horas. Perfecto para uso prolongado, compartir o tener un respaldo. Ahorro significativo con la compra de 2 unidades.",
     price: 65269.25,
     images: [
       "/images/products/wrinkle-bounce-multi-balm-duo-edition.jpg",

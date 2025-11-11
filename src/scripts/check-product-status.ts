@@ -68,7 +68,7 @@ async function main() {
   console.log("🔍 Verificando status de publicação dos produtos\n");
 
   // Check a few products
-  await checkProductStatus(1); // Bálsamo Multi Rebote de Arrugas
+  await checkProductStatus(1); // Bálsamo en barra de colágeno
   await checkProductStatus(2); // Stick Bálsamo Aqua
 }
 

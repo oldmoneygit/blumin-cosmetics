@@ -51,7 +51,7 @@ const routineSteps: RoutineStep[] = [
   {
     step: 7,
     name: "Bálsamo",
-    productName: "Bálsamo Multi Rebote de Arrugas",
+    productName: "Bálsamo en barra de colágeno",
     productSlug: "wrinkle-bounce-multi-balm",
   },
 ];
