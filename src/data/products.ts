@@ -1407,6 +1407,51 @@ export const products: Product[] = [
       "El set incluye productos especializados para claridad de la piel. Aplicá los productos según su función: primero la limpieza, luego los tratamientos para manchas en las áreas afectadas, seguido de hidratación y protección solar. Consultá las instrucciones individuales de cada producto. Usá mañana y noche para mejores resultados en la reducción de manchas y unificación del tono.",
     size: "Set completo (múltiples productos para claridad)",
   },
+  {
+    id: 30,
+    name: "BIODANCE Hydro Cera-nol",
+    slug: "biodance-hydro-cera-nol",
+    description: "Crema hidratante con bio-colágeno para minimización de arrugas y elasticidad",
+    fullDescription:
+      "Crema facial hidratante avanzada con bio-colágeno que proporciona hidratación profunda, minimiza la apariencia de arrugas y mejora la elasticidad de la piel. Formulada con tecnología coreana avanzada para una piel más firme, suave y radiante.",
+    price: 45000.0,
+    images: [
+      "/images/products/biodance-hydro-cera-nol-main.webp",
+      "/images/products/biodance-hydro-cera-nol-translated-1.png",
+      "/images/products/biodance-hydro-cera-nol-translated-2.png",
+      "/images/products/biodance-hydro-cera-nol-translated-3.png",
+      "/images/products/biodance-hydro-cera-nol-translated-4.png",
+      "/images/products/biodance-hydro-cera-nol-translated-5.png",
+      "/images/products/biodance-hydro-cera-nol-translated-6.png",
+    ],
+    category: "Hidratante",
+    tags: ["BIO-COLÁGENO", "ANTI-EDAD", "HIDRATACIÓN", "ELASTICIDAD"],
+    rating: 4.7,
+    reviewCount: 856,
+    inStock: true,
+    isBestSeller: false,
+    isNew: true,
+    benefits: [
+      "Hidratación profunda y duradera",
+      "Minimiza apariencia de arrugas",
+      "Mejora elasticidad de la piel",
+      "Bio-colágeno para firmeza",
+      "Textura ligera y no grasa",
+      "Absorción rápida",
+    ],
+    ingredients: [
+      "Bio-Colágeno",
+      "Ácido Hialurónico",
+      "Ceramidas",
+      "Glicerina",
+      "Aceites Nutritivos",
+      "Extractos Botánicos",
+      "Péptidos",
+    ],
+    howToUse:
+      "Aplicá una cantidad adecuada en rostro y cuello después de la limpieza y tónico. Masajeá suavemente con movimientos circulares ascendentes hasta completa absorción. Usá mañana y noche para mejores resultados. Ideal como último paso de tu rutina de cuidado de la piel.",
+    size: "50ml",
+  },
 ];
 
 export const ingredients: Ingredient[] = [
