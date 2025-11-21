@@ -54,11 +54,11 @@ export default function HomePage() {
 
       <HeroSection />
 
-      <section className="bg-gradient-to-b from-white to-pink-50/60 py-6 sm:py-10">
+      <section className="py-6 sm:py-10 bg-white">
         <div className="mx-auto w-full max-w-7xl px-0 sm:px-6 lg:px-8">
           <div className="relative w-full overflow-hidden rounded-none sm:rounded-3xl shadow-2xl bg-gray-100 aspect-[3/1] sm:aspect-[22/9] lg:aspect-[24/9]">
             <Image
-              src="/images/banners/black-friday-sets-banner.png"
+              src="/images/banners/compra-2-llavate-1.png"
               alt="Black Friday - Comprá dos y llevate uno gratis"
               width={1600}
               height={533}
