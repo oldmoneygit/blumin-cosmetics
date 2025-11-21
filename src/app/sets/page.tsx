@@ -17,7 +17,12 @@ export default function SetsPage() {
   const setsCollection = useMemo(
     () =>
       products.filter(
-        (product) => product.inStock && product.name.includes("🎁")
+        (product) => 
+          product.inStock && 
+          (product.tags.includes("SET") || 
+           product.tags.includes("COMBO") || 
+           product.tags.includes("DUO") || 
+           product.tags.includes("KIT"))
       ),
     []
   );
