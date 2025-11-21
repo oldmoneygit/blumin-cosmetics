@@ -54,6 +54,30 @@ export default function HomePage() {
 
       <HeroSection />
 
+      <section className="py-6 sm:py-10 bg-white">
+        <div className="mx-auto w-full max-w-7xl px-0 sm:px-6 lg:px-8">
+          <div className="relative w-full overflow-hidden rounded-none sm:rounded-3xl shadow-2xl bg-gray-100 aspect-[3/1] sm:aspect-[22/9] lg:aspect-[24/9]">
+            <Image
+              src="/images/banners/compra-2-llavate-1.png"
+              alt="Black Friday - Comprá dos y llevate uno gratis"
+              width={1600}
+              height={533}
+              priority
+              className="h-full w-full object-cover"
+              sizes="100vw"
+            />
+            <div className="absolute inset-x-0 bottom-4 hidden sm:flex justify-end pr-10">
+              <Link
+                href="/sets"
+                className="inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-semibold uppercase tracking-wide text-pink-600 shadow-lg transition-all hover:bg-pink-100"
+              >
+                Ver Black Friday Sets
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {blackFridaySets.length > 0 && (
         <section className="bg-gradient-to-b from-white via-pink-50/40 to-white py-10 sm:py-12">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -84,30 +108,6 @@ export default function HomePage() {
           </div>
         </section>
       )}
-
-      <section className="py-6 sm:py-10 bg-white">
-        <div className="mx-auto w-full max-w-7xl px-0 sm:px-6 lg:px-8">
-          <div className="relative w-full overflow-hidden rounded-none sm:rounded-3xl shadow-2xl bg-gray-100 aspect-[3/1] sm:aspect-[22/9] lg:aspect-[24/9]">
-            <Image
-              src="/images/banners/compra-2-llavate-1.png"
-              alt="Black Friday - Comprá dos y llevate uno gratis"
-              width={1600}
-              height={533}
-              priority
-              className="h-full w-full object-cover"
-              sizes="100vw"
-            />
-            <div className="absolute inset-x-0 bottom-4 hidden sm:flex justify-end pr-10">
-              <Link
-                href="/sets"
-                className="inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-semibold uppercase tracking-wide text-pink-600 shadow-lg transition-all hover:bg-pink-100"
-              >
-                Ver Black Friday Sets
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
 
       <BestSellersSection products={products} onAddToCart={handleAddToCart} />
 
