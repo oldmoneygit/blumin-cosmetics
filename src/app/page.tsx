@@ -3,6 +3,7 @@
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { HeroSection } from "@/components/sections/HeroSection";
+import { HeroContentSection } from "@/components/sections/HeroContentSection";
 import { BestSellersSection } from "@/components/sections/BestSellersSection";
 import { ProductHighlights } from "@/components/sections/ProductHighlights";
 import { MobileBannerCarousel } from "@/components/sections/MobileBannerCarousel";
@@ -52,9 +53,7 @@ export default function HomePage() {
     <main className="min-h-screen">
       <Header cartItemCount={getItemCount()} />
 
-      <section className="relative mt-32 w-full overflow-hidden bg-white sm:mt-24 lg:mt-28">
-        <HeroSection />
-      </section>
+      <HeroSection />
 
       <section className="py-6 sm:py-10 bg-white">
         <div className="mx-auto w-full max-w-7xl px-0 sm:px-6 lg:px-8">
@@ -78,10 +77,6 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-      </section>
-
-      <section className="relative mt-8 w-full bg-white">
-        <HeroSection />
       </section>
 
       {blackFridaySets.length > 0 && (
@@ -114,6 +109,8 @@ export default function HomePage() {
           </div>
         </section>
       )}
+
+      <HeroContentSection />
 
       <BestSellersSection products={products} onAddToCart={handleAddToCart} />
 
